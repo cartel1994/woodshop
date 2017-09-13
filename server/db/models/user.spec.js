@@ -48,26 +48,25 @@ describe('User model', () => {
           })
       })
 
-      it('returns true if the password is correct', () => {
+      it('returns true if user is an admin', () => {
         expect(cody.isAdmin).to.be.equal(true)
       })
     }) 
 
-    describe('Non-admin users do not have isAdmin flag', () => {
+    describe('Users should by default not be admins', () => {
       let jane
 
       beforeEach(() => {
         return User.create({
           email: 'jane@puppybook.com',
           password: 'bones',
-          isAdmin: false
         })
           .then(user => {
             jane = user
           })
       })
 
-      it('returns true if the password is correct', () => {
+      it('returns false if jane is not an admin', () => {
         expect(jane.isAdmin).to.be.equal(false)
       })
     }) 
