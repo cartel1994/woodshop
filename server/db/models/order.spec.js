@@ -13,17 +13,23 @@ describe('Order model', () => {
   describe('definitions', () => {
 
     it('has expected quantity definition', () => {
-      expect(Order.attributes.quantity).to.be.an('object');
+      expect(Order.attributes.quantity).to.be.an('object')
     });
 
     it('has expected price definition', () => {
-      expect(Order.attributes.quantity).to.be.an('object');
+      expect(Order.attributes.quantity).to.be.an('object')
     });
 
   })
 
   describe('validations', () => {
-    it('requires')
+    it('requires quantity to be greater than 0', {
+
+    })
+
+    it('requires price to be greater than 0', {
+
+    })
   })
 
 })
