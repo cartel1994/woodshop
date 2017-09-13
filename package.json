@@ -1,6 +1,6 @@
 {
   "name": "woodshop",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "From tree to you",
   "engines": {
     "node": ">= 7.0.0"
