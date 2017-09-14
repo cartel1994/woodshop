@@ -9,6 +9,26 @@ describe('User model', () => {
     return db.sync({force: true})
   })
 
+  it('has the expected schema definition', () => {
+    expect(User.attributes.email).to.be.an('object');
+    expect(User.attributes.password).to.be.an('object');
+    expect(User.attributes.salt).to.be.an('object');
+    expect(User.attributes.googleId).to.be.an('object');
+    expect(User.attributes.isAdmin).to.be.an('object');
+  });
+
+  describe('validations', () => {
+    it('requires email', () => {
+      const user = User.build();
+      return user.validate()
+        .then(() => { throw new Error('Promise should have rejected')})
+        .catch(err => {
+          expect(err).to.exist;
+          expect(err).to.be.an('error');
+        })
+    })
+  })
+
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
       let cody
