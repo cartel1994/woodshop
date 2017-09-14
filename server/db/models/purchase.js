@@ -31,3 +31,5 @@ const Purchase = db.define('purchase', {
     }
   }
 })
+
+module.exports = Purchase
