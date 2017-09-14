@@ -1,3 +1,5 @@
+import Sequelize from 'sequelize'
+
 const User = require('./user')
 const Purchase = require('./purchase')
 const Order = require('./order')
@@ -18,7 +20,7 @@ Purchase.belongsTo(User);
 Review.belongsTo(User)
 
 // Product -> Reviews
-Product.hasMany(Reviews)
+Product.hasMany(Review)
 
 // Order -> Product
 Order.hasOne(Product);
