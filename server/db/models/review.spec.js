@@ -10,7 +10,7 @@ describe('Review Model', () => {
 
   describe('definition', () => {
 
-    const review = Review.build({ 
+    const review = Review.build({
       rating: 5,
       summary: "Good"
     })
@@ -45,7 +45,7 @@ describe('Review Model', () => {
         });
     });
 
-    it('requires a rating that is more than 0', () => {
+    it('requires a rating that is less than 5', () => {
       const review = Review.build({
         rating: 6,
         summary: "test"
