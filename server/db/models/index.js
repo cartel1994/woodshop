@@ -1,4 +1,5 @@
 const User = require('./user')
+const Purchase = require('./purchase')
 const Order = require('./order')
 const Category = require('./category')
 const Product = require('./product')
@@ -19,6 +20,7 @@ const Review = require('./review')
  */
 module.exports = {
   User,
+  Purchase,
   Product,
   Order,
   Category,
