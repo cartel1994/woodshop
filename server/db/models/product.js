@@ -28,7 +28,7 @@ const Product = db.define('product', {
   },
   setterMethods: {
     price: function (dollars) {
-      return dollars * 100
+      this.setPrice('price', dollars * 100)
     }
   }
 })
