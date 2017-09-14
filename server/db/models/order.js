@@ -14,10 +14,16 @@ const Order = db.define('order',{
   }
 }, {
   getterMethods: {
-    priceTotal: function () {
-      return this.getDataValue('quantity') * this.getDataValue('price') / 100;
+    price: function () {
+      return this.getDataValue('price') / 100
     }
   }
 })
 
 module.exports = Order
+
+
+// instance method
+Order.prototype.totalCost = function () {
+  return this.price * this.quantity
+}
