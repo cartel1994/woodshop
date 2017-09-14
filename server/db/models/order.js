@@ -16,6 +16,9 @@ const Order = db.define('order',{
   getterMethods: {
     price: function () {
       return this.getDataValue('price') / 100
+    },
+    totalCost: function () {
+      return this.price * this.quantity
     }
   },
   setterMethods: {
@@ -26,9 +29,3 @@ const Order = db.define('order',{
 })
 
 module.exports = Order
-
-
-// instance method
-Order.prototype.totalCost = function () {
-  return this.price * this.quantity
-}

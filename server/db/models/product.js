@@ -11,9 +11,10 @@ const Product = db.define('product', {
   details: {
     type: Sequelize.TEXT
   },
-  available: {
-    type: Sequelize.BOOLEAN,
-    default: false
+  stock: {
+    type: Sequelize.INTEGER,
+    default: 0,
+    validate: {min: 0}
   },
   price: {
     type: Sequelize.INTEGER,
@@ -24,6 +25,9 @@ const Product = db.define('product', {
   getterMethods: {
     price: function() {
       return this.getDataValue('price') / 100
+    },
+    available: function () {
+      return this.stock > 0
     }
   },
   setterMethods: {

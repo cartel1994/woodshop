@@ -66,7 +66,7 @@ describe('Order model', () => {
     describe('total price', () => {
 
       it('returns the price and total product divided by 100', () => {
-        expect(order1.totalCost()).to.equal(5 * 9.99)
+        expect(order1.totalCost).to.equal(5 * 9.99)
       })
     })
 
