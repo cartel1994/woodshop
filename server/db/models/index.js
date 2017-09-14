@@ -1,3 +1,5 @@
+import Sequelize from 'sequelize'
+
 const User = require('./user')
 const Purchase = require('./purchase')
 const Order = require('./order')
@@ -12,12 +14,32 @@ const Review = require('./review')
  *    BlogPost.belongsTo(User)
  */
 
+Purchase.belongsTo(User);
+
+// Reviews -> User
+Review.belongsTo(User)
+
+// Product -> Reviews
+Product.hasMany(Review)
+
+// Order -> Product
+Order.hasOne(Product);
+
+// Purchase <-> Orders
+Purchase.hasMany(Order);
+Order.belongsTo(Purchase);
+
+// Product -> Category
+Product.belongsToMany(Category, { through: 'ProductCategory'});
+Category.belongsToMany(Product, { through: 'ProductCategory'});
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
 module.exports = {
   User,
   Purchase,
