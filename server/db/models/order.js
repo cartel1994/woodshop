@@ -19,10 +19,9 @@ const Order = db.define('order',{
     }
   },
   setterMethods: {
-    // removed to allow totalCost to work
-    // price: function (dollars) {
-    //   this.setDataValue('price', dollars * 100)
-    // }
+    price: function (dollars) {
+      this.setDataValue('price', dollars * 100)
+    }
   }
 })
 

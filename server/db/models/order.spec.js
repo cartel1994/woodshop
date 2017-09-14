@@ -61,7 +61,7 @@ describe('Order model', () => {
 
   describe('Getter Methods', () => {
 
-    const order1 = Order.build({quantity: 5, price: 999})
+    const order1 = Order.build({quantity: 5, price: 9.99})
 
     describe('total price', () => {
 
