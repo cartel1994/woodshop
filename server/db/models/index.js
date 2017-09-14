@@ -18,12 +18,13 @@ Purchase.belongsTo(User);
 
 // Reviews -> User
 Review.belongsTo(User)
+User.hasMany(Review)
 
 // Product -> Reviews
 Product.hasMany(Review)
 
 // Order -> Product
-Order.hasOne(Product);
+Order.belongsTo(Product);
 
 // Purchase <-> Orders
 Purchase.hasMany(Order);
