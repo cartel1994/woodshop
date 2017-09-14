@@ -17,6 +17,12 @@ const Order = db.define('order',{
     price: function () {
       return this.getDataValue('price') / 100
     }
+  },
+  setterMethods: {
+    // removed to allow totalCost to work
+    // price: function (dollars) {
+    //   this.setDataValue('price', dollars * 100)
+    // }
   }
 })
 

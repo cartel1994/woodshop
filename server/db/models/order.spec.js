@@ -17,7 +17,7 @@ describe('Order model', () => {
     });
 
     it('has expected price definition', () => {
-      expect(Order.attributes.quantity).to.be.an('object')
+      expect(Order.attributes.price).to.be.an('object')
     });
 
   })
@@ -66,7 +66,7 @@ describe('Order model', () => {
     describe('total price', () => {
 
       it('returns the price and total product divided by 100', () => {
-        expect(order1.totalPrice)
+        expect(order1.totalCost()).to.equal(5 * 9.99)
       })
     })
 
