@@ -20,7 +20,7 @@ const Purchase = db.define('purchase', {
   }
 }, {
   getterMethods: {
-    totalPrice: () => {
+    totalPrice: function () {
       return this.getOrders()
         .then(orders => {
           const sum = orders.reduce((acc, curr) => {
