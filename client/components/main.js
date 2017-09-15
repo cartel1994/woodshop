@@ -10,6 +10,7 @@ import {green100, green500, green700} from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -92,6 +93,32 @@ Main.propTypes = {
 // PRODUCT LIST
 function ProductList ({products}) {
   return (
-    <h1>Product Name: {products.length && products[0].name}</h1>
+    <div>
+      <h1>Product List</h1>
+      <div>
+      {products.map(product => product.available && <ProductItem product={product}/>)}
+      </div>
+    </div>
+  )
+}
+
+
+// PRODUCT ITEM
+function ProductItem ({product}) {
+  return (
+    <Card>
+    <CardHeader
+      title={product.name}
+      subtitle={`$${product.price}`}
+      avatar={product.photoUrl}
+    />
+    <CardText>
+      {product.details}
+    </CardText>
+    <CardActions>
+      <FlatButton label="Details" />
+      <FlatButton label="Add to Cart" />
+    </CardActions>
+  </Card>
   )
 }
