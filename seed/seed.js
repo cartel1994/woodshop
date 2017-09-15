@@ -33,6 +33,7 @@ const seed = () =>
   .then(() => Promise.all(categories.map(category => Category.create(category))))
   .then(() => Promise.all(purchases.map(purchase => Purchase.create(purchase))))
   .then(() => Promise.all(users.map(user => User.create(user))))
+  .then(() => Promise.all(reviews.map(review => Review.create(review))))
 
 const main = () => {
   console.log('Syncing db...');
