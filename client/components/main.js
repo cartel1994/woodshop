@@ -115,7 +115,7 @@ function ProductList ({products}) {
     <div>
       <h1>Product List</h1>
       <div>
-      {products.map(product => product.available && <ProductItem product={product}/>)}
+      {products.map(product => product.available && <ProductItem key={product.id} product={product}/>)}
       </div>
     </div>
   )
