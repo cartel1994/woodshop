@@ -50,6 +50,7 @@ const Main = (props) => {
               </div>
             }
           />
+          <ProductList products={props.products} />
           <hr />
           {children}
         </div>
@@ -62,7 +63,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    products: state.products
   }
 }
 
@@ -85,4 +87,11 @@ Main.propTypes = {
   children: PropTypes.object,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
+}
+
+// PRODUCT LIST
+function ProductList ({products}) {
+  return (
+    <h1>Product Name: {products.length && products[0].name}</h1>
+  )
 }
