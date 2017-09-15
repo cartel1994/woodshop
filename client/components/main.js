@@ -50,6 +50,9 @@ const Main = (props) => {
               </div>
             }
           />
+          <br />
+            <SearchBarComp/>
+          <br />
           <hr />
           {children}
         </div>
@@ -85,4 +88,21 @@ Main.propTypes = {
   children: PropTypes.object,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
+}
+
+
+//SEARCH BAR COMPONENT
+import SearchBar from 'material-ui-search-bar'
+function SearchBarComp () {
+  return(
+    <SearchBar
+      onChange={() => console.log('onChange')}
+      onRequestSearch={() => console.log('onRequestSearch')}
+      hintText="Search for Some Wood"
+      style={{
+        margin: '0 auto',
+        maxWidth: 800
+      }}
+    />
+  )
 }
