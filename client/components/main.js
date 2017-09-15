@@ -4,6 +4,27 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {green100, green500, green700} from 'material-ui/styles/colors'
+import AppBar from 'material-ui/AppBar';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+
+//* MUI THEME */
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: green500,
+    primary2Color: green700,
+    primary3Color: green100,
+  },
+}, {
+  avatar: {
+    borderColor: null,
+  },
+  userAgent: 'all',
+})
+
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -14,26 +35,25 @@ const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
-    <div>
-      <h1>WOODSHOP</h1>
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to='/home'>Home</Link>
-              <a href='#' onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {children}
-    </div>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
+          <AppBar
+            title = "Wood Shop"
+            iconElementRight = {
+              <div>
+              <FlatButton label="Home"
+              containerElement={<Link to="/home"/>}/>
+              <FlatButton label="Sign Up"
+              containerElement={<Link to="/signup"/>}/>
+              <FlatButton label="Login"
+              containerElement={<Link to="/login"/>}/>
+              </div>
+            }
+          />
+          <hr />
+          {children}
+        </div>
+      </MuiThemeProvider>
   )
 }
 

@@ -1,5 +1,3 @@
-import Sequelize from 'sequelize'
-
 const User = require('./user')
 const Purchase = require('./purchase')
 const Order = require('./order')
