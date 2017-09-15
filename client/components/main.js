@@ -51,6 +51,9 @@ const Main = (props) => {
               </div>
             }
           />
+          <br />
+          <SearchBarComp/>
+          <br />
           <ProductList products={props.products} />
           <hr />
           {children}
@@ -90,6 +93,22 @@ Main.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
 }
 
+//SEARCH BAR COMPONENT
+import SearchBar from 'material-ui-search-bar'
+function SearchBarComp () {
+  return(
+    <SearchBar
+      onChange={() => console.log('onChange')}
+      onRequestSearch={() => console.log('onRequestSearch')}
+      hintText="Search for Some Wood"
+      style={{
+        margin: '0 auto',
+        maxWidth: 800
+      }}
+    />
+  )
+}
+
 // PRODUCT LIST
 function ProductList ({products}) {
   return (
@@ -106,19 +125,19 @@ function ProductList ({products}) {
 // PRODUCT ITEM
 function ProductItem ({product}) {
   return (
-    <Card>
-    <CardHeader
-      title={product.name}
-      subtitle={`$${product.price}`}
-      avatar={product.photoUrl}
-    />
-    <CardText>
-      {product.details}
-    </CardText>
-    <CardActions>
-      <FlatButton label="Details" />
-      <FlatButton label="Add to Cart" />
-    </CardActions>
-  </Card>
+     <Card>
+      <CardHeader
+        title={product.name}
+        subtitle={`$${product.price}`}
+        avatar={product.photoUrl}
+      />
+      <CardText>
+        {product.details}
+      </CardText>
+      <CardActions>
+        <FlatButton label="Details" />
+        <FlatButton label="Add to Cart" />
+      </CardActions>
+    </Card>
   )
 }
