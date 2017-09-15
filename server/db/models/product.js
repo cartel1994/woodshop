@@ -20,6 +20,13 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {min: 1}
+  },
+  photoUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://dummyimage.com/1024x768/573/fff',
+    validate: {
+      isUrl: true
+    }
   }
 }, {
   getterMethods: {
