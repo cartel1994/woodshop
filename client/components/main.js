@@ -10,6 +10,7 @@ import {green100, green500, green700} from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -51,8 +52,9 @@ const Main = (props) => {
             }
           />
           <br />
-            <SearchBarComp/>
+          <SearchBarComp/>
           <br />
+          <ProductList products={props.products} />
           <hr />
           {children}
         </div>
@@ -65,7 +67,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    products: state.products
   }
 }
 
@@ -90,7 +93,6 @@ Main.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
 }
 
-
 //SEARCH BAR COMPONENT
 import SearchBar from 'material-ui-search-bar'
 function SearchBarComp () {
@@ -104,5 +106,38 @@ function SearchBarComp () {
         maxWidth: 800
       }}
     />
+  )
+}
+
+// PRODUCT LIST
+function ProductList ({products}) {
+  return (
+    <div>
+      <h1>Product List</h1>
+      <div>
+      {products.map(product => product.available && <ProductItem product={product}/>)}
+      </div>
+    </div>
+  )
+}
+
+
+// PRODUCT ITEM
+function ProductItem ({product}) {
+  return (
+     <Card>
+      <CardHeader
+        title={product.name}
+        subtitle={`$${product.price}`}
+        avatar={product.photoUrl}
+      />
+      <CardText>
+        {product.details}
+      </CardText>
+      <CardActions>
+        <FlatButton label="Details" />
+        <FlatButton label="Add to Cart" />
+      </CardActions>
+    </Card>
   )
 }
