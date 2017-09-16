@@ -1,12 +1,12 @@
-import SearchBar from 'material-ui-search-bar'
+import SearchBarComp from 'material-ui-search-bar'
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {writeSearch} from '../store'
 
-export const SearchBarComp = ({searchInput, handleChange}) => {
+export const SearchBar = ({searchInput, handleChange}) => {
   return (
-    <SearchBar
+    <SearchBarComp
       value={searchInput}
       onChange={handleChange}
       onRequestSearch={() => console.log('onRequestSearch')}
@@ -33,9 +33,9 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(SearchBarComp)
+export default connect(mapState, mapDispatch)(SearchBar)
 
-SearchBarComp.propTypes = {
+SearchBar.propTypes = {
   searchInput: PropTypes.string,
   handleChange: PropTypes.func
 }

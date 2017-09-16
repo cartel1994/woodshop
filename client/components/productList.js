@@ -2,23 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProductItem from './productItem'
-import SearchBarComp from './searchBarComp'
+import SearchBar from './searchBar'
 
 export const ProductList = ({products, searchInput}) => {
   const filteredProducts = products.filter(product => {
     return product.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
   })
 
-  if (filteredProducts.length) products = filteredProducts
+  if (filteredProducts.length || searchInput) products = filteredProducts
 
   return (
     <div>
       <h1>Product List</h1>
-      <SearchBarComp />
+      <SearchBar />
       <br />
       <div>
         {
-          products.map(product => product.available && <ProductItem key={product.id} product={product}/>)
+          products.length
+          ? products.map(product => product.available && <ProductItem key={product.id} product={product}/>)
+          : <p>There are no products matching that name</p>
         }
       </div>
     </div>
