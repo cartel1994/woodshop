@@ -43,26 +43,24 @@ const makeAssociations = () => {
 
   return Purchase.findAll()
     .then(purchases => {
-      return Promise.all(purchases.map(purchase => purchase.setUser( Math.round(Math.random() * (users.length - 1)) + 1 )))
+      return Promise.all(purchases.map(purchase => purchase.setUser( getRandomIndex(users) + 1 )))
       })
     // Reviews: builds associations for Reviews.belongsTo(User) and Reviews.belongsTo(Product)
     .then(() => Review.findAll())
     .then(reviews => {
-      return Promise.all(reviews.map(review => review.setUser( Math.round(Math.random() * (users.length - 1)) + 1 )))
+      return Promise.all(reviews.map(review => review.setUser( getRandomIndex(users) + 1 )))
     })
     .then(() => Review.findAll())
     .then(reviews => {
-      return Promise.all(reviews.map(review => review.setProduct( Math.round(Math.random() * (products.length - 1)) + 1 )))
+      return Promise.all(reviews.map(review => review.setProduct( getRandomIndex(products) + 1 )))
     })
     // Orders: creates associations and computes the price of the order
     // TODO: refactor for DRY
     .then(() => Promise.all([Product.findAll(), Purchase.findAll()]))
     .spread((products, purchases) => {
       return Promise.all(orders.map(order => {
-        let randomProductIndex = Math.round(Math.random() * (products.length - 1))     // Remove the trailing +1 because we are using array notation
-        let randomPurchaseIndex = Math.round(Math.random() * (purchases.length - 1))   // Remove the trailing +1 because we are using array notation
-        let randomProduct = products[randomProductIndex]
-        let randomPurchase = purchases[randomPurchaseIndex]
+        let randomProduct = products[ getRandomIndex(products) ]
+        let randomPurchase = purchases[ getRandomIndex(purchases)]
         const newOrder = Order.build({
           id: order.id,
           quantity: order.quantity,
@@ -79,17 +77,6 @@ const makeAssociations = () => {
       return Promise.all(products.map(product => product.setCategories([getRandomIndex(categories), getRandomIndex(categories)])))
     }))
     .catch(err => console.log(err))
-    
-    // {
-    //   return Promise.all(products.map(product => console.log(product)))
-    //   // return Promise.all(products.map(product => product.setCategories([getRandomIndex[categories], getRandomIndex[categories]])))
-    // })
-    // {
-    //   for (index in orders) {
-    //     console.log(orders[index])
-    //     let randomProduct = Product.findById(Math.round(Math.random() * (products.length - 1)) + 1)
-    //     console.log(randomProduct)
-    //   }
 }
 
 const main = () => {
