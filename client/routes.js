@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, Login, Signup, UserHome, ProductList} from './components'
 import {me, fetchProducts} from './store'
 
 /**
@@ -32,8 +32,7 @@ class Routes extends Component {
                   <Route path='/home' component={UserHome} />
                 </Switch>
             }
-            {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={ProductList} />
           </Switch>
         </Main>
       </Router>
