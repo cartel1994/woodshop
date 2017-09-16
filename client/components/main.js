@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import SearchBarComp from './searchBarComp'
+import ProductList from './productList'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -10,7 +12,6 @@ import {green100, green500, green700} from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -52,10 +53,6 @@ const Main = (props) => {
             }
           />
           <br />
-          <SearchBarComp/>
-          <br />
-          <ProductList products={props.products} />
-          <hr />
           {children}
         </div>
       </MuiThemeProvider>
@@ -67,8 +64,7 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id,
-    products: state.products
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -91,53 +87,4 @@ Main.propTypes = {
   children: PropTypes.object,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
-}
-
-//SEARCH BAR COMPONENT
-import SearchBar from 'material-ui-search-bar'
-function SearchBarComp () {
-  return(
-    <SearchBar
-      onChange={() => console.log('onChange')}
-      onRequestSearch={() => console.log('onRequestSearch')}
-      hintText="Search for Some Wood"
-      style={{
-        margin: '0 auto',
-        maxWidth: 800
-      }}
-    />
-  )
-}
-
-// PRODUCT LIST
-function ProductList ({products}) {
-  return (
-    <div>
-      <h1>Product List</h1>
-      <div>
-      {products.map(product => product.available && <ProductItem key={product.id} product={product}/>)}
-      </div>
-    </div>
-  )
-}
-
-
-// PRODUCT ITEM
-function ProductItem ({product}) {
-  return (
-     <Card>
-      <CardHeader
-        title={product.name}
-        subtitle={`$${product.price}`}
-        avatar={product.photoUrl}
-      />
-      <CardText>
-        {product.details}
-      </CardText>
-      <CardActions>
-        <FlatButton label="Details" />
-        <FlatButton label="Add to Cart" />
-      </CardActions>
-    </Card>
-  )
 }

@@ -1,16 +1,15 @@
 import axios from 'axios'
-import history from '../history'
 
-// action types
+// ACTION TYPES
 const GET_PRODUCTS = 'GET_PRODUCTS'
 
-// initial state
+// INITIAL STATE
 const defaultProducts = []
 
-// action creators
+// ACTION CREATORS
 const getProducts = products => ({type: GET_PRODUCTS, products})
 
-// thunk creators
+// THUNK CREATORS
 export const fetchProducts = () =>
   dispatch =>
     axios.get('/api/products')
@@ -18,7 +17,7 @@ export const fetchProducts = () =>
         dispatch(getProducts(res.data || defaultProducts)))
       .catch(err => console.error(err))
 
-// reducer
+// REDUCER
 export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
