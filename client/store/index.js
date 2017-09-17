@@ -5,12 +5,14 @@ import user from './user'
 import products from './products'
 import searchInput from './searchInput'
 import toggleCart from './toggleCart'
+import cart from './cart'
 
 const reducer = combineReducers({
   user, 
   products, 
   searchInput,
-  toggleCart
+  toggleCart,
+  cart
 })
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -21,3 +23,4 @@ export * from './user'
 export * from './products'
 export * from './searchInput'
 export * from './toggleCart'
+export * from './cart'

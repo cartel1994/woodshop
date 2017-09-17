@@ -33,14 +33,13 @@ const Cart = (props) => {
             title="Sample Item"
           />
           <CardActions>
-            <TextField 
+            <TextField
               floatingLabelText="Quantity"
               id="quantity" 
               defaultValue="1" />
             <FlatButton label="Remove" />
           </CardActions>
         </Card>
-        
         </Drawer>
   )
 }
