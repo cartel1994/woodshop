@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { withRouter, Link } from 'react-router-dom'
+import { logout } from '../store'
+import ProductList from './productList'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {green100, green500, green700} from 'material-ui/styles/colors'
+import { green100, green500, green700 } from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -19,11 +21,11 @@ const muiTheme = getMuiTheme({
     primary3Color: green100,
   },
 }, {
-  avatar: {
-    borderColor: null,
-  },
-  userAgent: 'all',
-})
+    avatar: {
+      borderColor: null,
+    },
+    userAgent: 'all',
+  })
 
 /**
  * COMPONENT
@@ -32,28 +34,32 @@ const muiTheme = getMuiTheme({
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const { children, handleClick, isLoggedIn } = props
 
   return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-          <AppBar
-            title = "Wood Shop"
-            iconElementRight = {
-              <div>
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <div>
+        <AppBar
+          title="Wood Shop"
+          iconElementRight={
+            <div>
               <FlatButton label="Home"
-              containerElement={<Link to="/home"/>}/>
+                containerElement={<Link to="/home" />} />
               <FlatButton label="Sign Up"
-              containerElement={<Link to="/signup"/>}/>
+                containerElement={<Link to="/signup" />} />
               <FlatButton label="Login"
-              containerElement={<Link to="/login"/>}/>
-              </div>
-            }
-          />
-          <br />
-          {children}
-        </div>
-      </MuiThemeProvider>
+                containerElement={<Link to="/login" />} />
+              <IconButton tooltip="Cart">
+                home
+             </IconButton>
+            </div>
+
+          }
+        />
+        <br />
+        {children}
+      </div>
+    </MuiThemeProvider>
   )
 }
 
@@ -68,7 +74,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout())
     }
   }
