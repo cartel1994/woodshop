@@ -52,18 +52,7 @@ const mapDispatch = (dispatch, ownProps) => {
   }
 }
 
-const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
-  return {
-    ...propsFromState,
-    ...propsFromDispatch,
-    ...ownProps
-  }
-}
-
-
-
-
-export default connect(mapState, mapDispatch, mergeProps)(ProductItem)
+export default connect(mapState, mapDispatch)(ProductItem)
 
 ProductItem.propTypes = {
   product: PropTypes.object,
