@@ -14,6 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
 import Badge from 'material-ui/Badge'
+import Drawer from 'material-ui/Drawer'
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -37,6 +38,7 @@ const muiTheme = getMuiTheme({
  */
 const Main = (props) => {
   const { children, handleClick, isLoggedIn } = props
+  let showCart = true;    // TODO: turn into stateful component
 
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
@@ -63,6 +65,13 @@ const Main = (props) => {
         />
         <br />
         {children}
+        <Drawer 
+        width={400} 
+        openSecondary={true} 
+        open={showCart} 
+        zDepth={2} 
+        docked={false}
+      />
       </div>
     </MuiThemeProvider>
   )

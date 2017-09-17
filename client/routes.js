@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, ProductList} from './components'
 import {me, fetchProducts} from './store'
-import Drawer from 'material-ui/Drawer'
+
 
 /**
  * COMPONENT
@@ -20,7 +20,6 @@ class Routes extends Component {
 
   render () {
     const {isLoggedIn} = this.props
-    let showCart = true;    // TODO: turn into stateful component
 
     return (
       <Router history={history}>
@@ -37,14 +36,8 @@ class Routes extends Component {
                 </Switch>
             }
             <Route component={ProductList} />
+
             </Switch>
-            <Drawer 
-              width={400} 
-              openSecondary={true} 
-              open={showCart} 
-              zDepth={2} 
-              docked={false}
-            />
         </Main>
       </Router>
     )
