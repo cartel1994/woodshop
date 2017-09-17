@@ -7,6 +7,7 @@ import product from './product'
 import reviews from './reviews'
 import users from './users'
 import searchInput from './searchInput'
+import cart from './cart'
 import toggleCart from './toggleCart'
 
 const reducer = combineReducers({
@@ -17,6 +18,8 @@ const reducer = combineReducers({
   product,
   reviews,
   users
+  cart,
+  toggleCart
 })
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -26,6 +29,7 @@ export default store
 export * from './user'
 export * from './products'
 export * from './searchInput'
+export * from './cart'
 export * from './toggleCart'
 export * from './product'
 export * from './reviews'

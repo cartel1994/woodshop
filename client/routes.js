@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, ProductList, ProductDetails} from './components'
-import {me, fetchProducts} from './store'
+import {me, fetchProducts, fetchCartItems} from './store'
 
 
 /**
@@ -15,8 +15,6 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
   }
-
-
 
   render () {
     const {isLoggedIn} = this.props
@@ -60,6 +58,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(fetchProducts())
+      dispatch(fetchCartItems())
     }
   }
 }

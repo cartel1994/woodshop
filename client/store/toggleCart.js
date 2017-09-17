@@ -13,6 +13,6 @@ export default function reducer (state = defaultState, action) {
     case TOGGLE_CART:
       return !state
     default:
-      return false
+      return state
   }
 }
