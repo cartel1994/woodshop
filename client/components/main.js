@@ -2,9 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { logout, toggleCart } from '../store'
-import ProductList from './productList'
 
+// Redux Stores
+import { logout, toggleCart } from '../store'
+
+// React Components
+import ProductList from './productList'
+import Cart from './cart'
+
+// Material UI
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green100, green500, green700 } from 'material-ui/styles/colors'
@@ -63,14 +69,7 @@ const Main = (props) => {
         />
         <br />
         {children}
-        <Drawer
-          docked={false}
-          width={400}
-          open={showCart}
-          openSecondary={true}
-          zDepth={2}
-          onRequestChange={(change) => toggleCart()}
-        />
+        <Cart />
         }
 
       </div>
