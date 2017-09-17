@@ -53,7 +53,7 @@ const Main = (props) => {
           iconElementRight={
             <div>
               <FlatButton label="Home"
-                containerElement={<Link to="/home" />} />
+                containerElement={<Link to="/" />} />
               <FlatButton label="Sign Up"
                 containerElement={<Link to="/signup" />} />
               <FlatButton label="Login"
