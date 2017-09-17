@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Redux Stores
-import { postCartItem } from '../store'
+import { postCartItem, toggleCart } from '../store'
 
 // Material UI
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
@@ -34,17 +34,22 @@ const ProductItem = ({ product, postCartItem }) => {
 
 const mapState = (state, ownProps) => {
   return {
-    product: ownProps.product
+    product: ownProps.product,
+    cart: ownProps.cart
   }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
     postCartItem: () => {
+      console.log(ownProps.cart)
+
       dispatch(postCartItem({
         ...ownProps.product,
         quantity: 1
       }))
+      dispatch(toggleCart())
+
     }
   }
 }
