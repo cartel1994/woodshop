@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -11,11 +12,8 @@ const ProductItem = ({product}) => {
         subtitle={`$${product.price}`}
         avatar={product.photoUrl}
       />
-      <CardText>
-        {product.details}
-      </CardText>
       <CardActions>
-        <FlatButton label="Details" />
+        <FlatButton label="Details" containerElement={<Link to={`/products/${product.id}`} />} />
         <FlatButton label="Add to Cart" />
       </CardActions>
     </Card>
@@ -25,5 +23,5 @@ const ProductItem = ({product}) => {
 export default ProductItem
 
 ProductItem.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
 }
