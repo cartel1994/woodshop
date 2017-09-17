@@ -16,44 +16,52 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 const Cart = (props) => {
-  const { showCart, toggleCart } = props
+  const { showCart, toggleCart, cartItems } = props
 
   return (
-        <Drawer
-          docked={false}
-          width={400}
-          open={showCart}
-          openSecondary={true}
-          zDepth={2}
-          onRequestChange={(change) => toggleCart()} 
-        >
-        <h1>Cart</h1>
-        <Card>
-          <CardHeader 
-            title="Sample Item"
-          />
-          <CardActions>
-            <TextField
-              floatingLabelText="Quantity"
-              id="quantity" 
-              defaultValue="1" />
-            <FlatButton label="Remove" />
-          </CardActions>
-        </Card>
-        </Drawer>
+    <Drawer
+      docked={false}
+      width={400}
+      open={showCart}
+      openSecondary={true}
+      zDepth={2}
+      onRequestChange={(change) => toggleCart()}
+    >
+      <h1>Cart</h1>
+      <Card>
+      cartItem
+      <CardHeader
+        title="Sample Item"
+      />
+      <CardActions>
+        <TextField
+          floatingLabelText="Quantity"
+          id="quantity"
+          defaultValue="1" />
+        <FlatButton label="Remove" />
+      </CardActions>
+    </Card>
+      {
+        cartItems.map(cartItem => {
+          
+        })
+      }
+    </Drawer>
+
   )
 }
 
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
-    showCart: state.toggleCart
+    showCart: state.toggleCart,
+    cartItems: state.cart
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     toggleCart() {
       dispatch(toggleCart())
