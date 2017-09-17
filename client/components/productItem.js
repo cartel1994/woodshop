@@ -42,19 +42,28 @@ const mapState = (state, ownProps) => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     postCartItem: () => {
-      console.log(ownProps.cart)
-
       dispatch(postCartItem({
         ...ownProps.product,
         quantity: 1
       }))
-      dispatch(toggleCart())
+      dispatch(toggleCart())  // Opens the cart to show the item added
 
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(ProductItem)
+const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
+  return {
+    ...propsFromState,
+    ...propsFromDispatch,
+    ...ownProps
+  }
+}
+
+
+
+
+export default connect(mapState, mapDispatch, mergeProps)(ProductItem)
 
 ProductItem.propTypes = {
   product: PropTypes.object,

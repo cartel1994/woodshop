@@ -18,8 +18,6 @@ import FlatButton from 'material-ui/FlatButton'
 const Cart = (props) => {
   const { showCart, toggleCart, cartItems } = props
 
-  console.log(cartItems)
-
   return (
     <Drawer
       docked={false}
