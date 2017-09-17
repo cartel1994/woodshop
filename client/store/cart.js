@@ -24,6 +24,15 @@ export const addCartItem = (newCartItem) => {
 
 // }
 
+// THUNK CREATORS
+export const postCartItem = (cartItem) =>
+  dispatch =>
+    axios.post('/api/cart', cartItem)
+      .then(res => {
+        dispatch(addCartItem(res.data))
+      })
+      .catch(err => console.error(err))
+
 // REDUCER
 export default function (state = defaultCart, action) {
   switch (action.type) {

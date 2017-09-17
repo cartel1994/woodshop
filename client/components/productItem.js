@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Redux Stores
-import { addCartItem } from '../store'
+import { postCartItem } from '../store'
 
-// Material UI 
+// Material UI
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
-const ProductItem = ({ product, addCartItem }) => {
+const ProductItem = ({ product, postCartItem }) => {
   return (
     <Card>
       <CardHeader
@@ -22,7 +22,7 @@ const ProductItem = ({ product, addCartItem }) => {
       </CardText>
       <CardActions>
         <FlatButton label="Details" />
-        <FlatButton label="Add to Cart" onClick={addCartItem}/>
+        <FlatButton label="Add to Cart" onClick={postCartItem}/>
       </CardActions>
     </Card>
   )
@@ -40,8 +40,11 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    addCartItem: () => {
-      dispatch(addCartItem(ownProps.product))
+    postCartItem: () => {
+      dispatch(postCartItem({
+        ...ownProps.product,
+        quantity: 1
+      }))
     }
   }
 }
@@ -49,5 +52,6 @@ const mapDispatch = (dispatch, ownProps) => {
 export default connect(mapState, mapDispatch)(ProductItem)
 
 ProductItem.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
+  postCartItem: PropTypes.func
 }
