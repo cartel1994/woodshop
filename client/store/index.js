@@ -4,11 +4,13 @@ import thunkMiddleware from 'redux-thunk'
 import user from './user'
 import products from './products'
 import searchInput from './searchInput'
+import toggleCart from './toggleCart'
 
 const reducer = combineReducers({
   user, 
   products, 
-  searchInput
+  searchInput,
+  toggleCart
 })
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -18,3 +20,4 @@ export default store
 export * from './user'
 export * from './products'
 export * from './searchInput'
+export * from './toggleCart'

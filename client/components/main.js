@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { logout } from '../store'
+import { logout, toggleCart } from '../store'
 import ProductList from './productList'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -37,8 +37,7 @@ const muiTheme = getMuiTheme({
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn } = props
-  let showCart = true;    // TODO: turn into stateful component
+  const { children, handleClick, isLoggedIn, showCart, toggleCart } = props
 
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
@@ -53,10 +52,9 @@ const Main = (props) => {
                 containerElement={<Link to="/signup" />} />
               <FlatButton label="Login"
                 containerElement={<Link to="/login" />} />
-              
-              { /* Shopping Cart */ }
-              <Badge badgeContent={5} secondary={true} badgeStyle={{top:14, right:14, fontSize: 14}}>
-                <IconButton>
+              { /* Shopping Cart */}
+              <Badge badgeContent={5} secondary={true} badgeStyle={{ top: 14, right: 14, fontSize: 14 }}>
+                <IconButton onClick={toggleCart}>
                   <ShoppingCart />
                 </IconButton>
               </Badge>
@@ -65,13 +63,16 @@ const Main = (props) => {
         />
         <br />
         {children}
-        <Drawer 
-        width={400} 
-        openSecondary={true} 
-        open={showCart} 
-        zDepth={2} 
-        docked={false}
-      />
+        <Drawer
+          docked={false}
+          width={400}
+          open={showCart}
+          openSecondary={true}
+          zDepth={2}
+          onRequestChange={(open) => toggleCart()}
+        />
+        }
+
       </div>
     </MuiThemeProvider>
   )
@@ -82,7 +83,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    showCart: state.toggleCart
   }
 }
 
@@ -90,6 +92,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
+    },
+    toggleCart() {
+      dispatch(toggleCart())
     }
   }
 }
