@@ -31,7 +31,7 @@ const Cart = (props) => {
     >
       <h1>Cart</h1>
       {
-        cartItems.map(cartItem => {
+        cartItems && cartItems.map(cartItem => {
           return (
             <Card key={cartItem.id}>
               <CardHeader
