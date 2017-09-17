@@ -17,7 +17,7 @@ const reducer = combineReducers({
   toggleCart,
   product,
   reviews,
-  users
+  users,
   cart,
   toggleCart
 })
