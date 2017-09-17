@@ -1,4 +1,5 @@
 const router = require('express').Router();
+module.exports = router
 
 router.post('/', (req, res, next) => {
   console.log("==============")
@@ -9,11 +10,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   let cart = req.session.cart
-  console.log(req.body)
+  console.log("==============")
+  console.log(req.session.cart)
   res.json(cart)
-  
 })
-
-
-
-module.exports = router
