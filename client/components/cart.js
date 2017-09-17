@@ -11,6 +11,9 @@ import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
 import Badge from 'material-ui/Badge'
 import Drawer from 'material-ui/Drawer'
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
 
 const Cart = (props) => {
   const { showCart, toggleCart } = props
@@ -22,8 +25,23 @@ const Cart = (props) => {
           open={showCart}
           openSecondary={true}
           zDepth={2}
-          onRequestChange={(change) => toggleCart()}
-        />
+          onRequestChange={(change) => toggleCart()} 
+        >
+        <h1>Cart</h1>
+        <Card>
+          <CardHeader 
+            title="Sample Item"
+          />
+          <CardActions>
+            <TextField 
+              floatingLabelText="Quantity"
+              id="quantity" 
+              defaultValue="1" />
+            <FlatButton label="Remove" />
+          </CardActions>
+        </Card>
+        
+        </Drawer>
   )
 }
 
