@@ -18,6 +18,8 @@ import FlatButton from 'material-ui/FlatButton'
 const Cart = (props) => {
   const { showCart, toggleCart, cartItems } = props
 
+  console.log(cartItems)
+
   return (
     <Drawer
       docked={false}
@@ -28,26 +30,25 @@ const Cart = (props) => {
       onRequestChange={(change) => toggleCart()}
     >
       <h1>Cart</h1>
-      <Card>
-      cartItem
-      <CardHeader
-        title="Sample Item"
-      />
-      <CardActions>
-        <TextField
-          floatingLabelText="Quantity"
-          id="quantity"
-          defaultValue="1" />
-        <FlatButton label="Remove" />
-      </CardActions>
-    </Card>
       {
         cartItems.map(cartItem => {
-          
+          return (
+            <Card key={cartItem.id}>
+              <CardHeader
+                title={cartItem.name}
+              />
+              <CardActions>
+                <TextField
+                  floatingLabelText="Quantity"
+                  id="quantity"
+                  defaultValue={cartItem.quantity} />
+                <FlatButton label="Remove" />
+              </CardActions>
+            </Card>
+          )
         })
       }
     </Drawer>
-
   )
 }
 

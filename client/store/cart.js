@@ -25,6 +25,15 @@ export const addCartItem = (newCartItem) => {
 // }
 
 // THUNK CREATORS
+export const fetchCartItems = () => {
+  return (dispatch) => {
+    return axios.get('/api/cart')
+      .then(res => res.data)
+      .then(cartItems => dispatch(getCartItems(cartItems)))
+      .catch(err => console.error(err))
+  }
+}
+
 export const postCartItem = (cartItem) =>
   dispatch =>
     axios.post('/api/cart', cartItem)
@@ -41,6 +50,6 @@ export default function (state = defaultCart, action) {
     case ADD_CART_ITEM:
       return [...state, action.newCartItem]
     default:
-      return defaultCart
+      return state
   }
 }
