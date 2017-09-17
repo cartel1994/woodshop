@@ -12,6 +12,8 @@ import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import ShoppingCart from 'material-ui-icons/ShoppingCart'
+import Badge from 'material-ui/Badge'
 
 //* MUI THEME */
 const muiTheme = getMuiTheme({
@@ -49,9 +51,13 @@ const Main = (props) => {
                 containerElement={<Link to="/signup" />} />
               <FlatButton label="Login"
                 containerElement={<Link to="/login" />} />
-              <IconButton tooltip="Cart">
-                home
-             </IconButton>
+              
+              { /* Shopping Cart*/ }
+              <Badge badgeContent={5} secondary={true} badgeStyle={{top:12, right:12}}>
+                <IconButton>
+                  <ShoppingCart />
+                </IconButton>
+              </Badge>
             </div>
 
           }
