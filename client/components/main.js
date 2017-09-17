@@ -69,7 +69,7 @@ const Main = (props) => {
           open={showCart}
           openSecondary={true}
           zDepth={2}
-          onRequestChange={(open) => toggleCart()}
+          onRequestChange={(change) => toggleCart()}
         />
         }
 
