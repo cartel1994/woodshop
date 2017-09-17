@@ -5,7 +5,8 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, ProductList} from './components'
-import {me, fetchProducts} from './store'
+import {me, fetchProducts, fetchCartItems} from './store'
+
 
 /**
  * COMPONENT
@@ -33,7 +34,8 @@ class Routes extends Component {
                 </Switch>
             }
             <Route component={ProductList} />
-          </Switch>
+
+            </Switch>
         </Main>
       </Router>
     )
@@ -56,6 +58,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(fetchProducts())
+      dispatch(fetchCartItems())
     }
   }
 }
@@ -67,5 +70,5 @@ export default connect(mapState, mapDispatch)(Routes)
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }
