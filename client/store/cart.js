@@ -30,7 +30,7 @@ export default function (state = defaultCart, action) {
     case GET_CART_ITEMS:
       return action.cartItems
     case ADD_CART_ITEM:
-      return action.newCartItem
+      return [...state, action.newCartItem]
     default:
       return defaultCart
   }
