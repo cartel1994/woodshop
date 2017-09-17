@@ -5,7 +5,12 @@ import user from './user'
 import products from './products'
 import searchInput from './searchInput'
 
-const reducer = combineReducers({user, products, searchInput})
+const reducer = combineReducers({
+  user, 
+  products, 
+  searchInput
+})
+
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 const store = createStore(reducer, middleware)
 
