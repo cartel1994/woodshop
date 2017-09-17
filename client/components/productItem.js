@@ -9,7 +9,7 @@ import { postCartItem, toggleCart } from '../store'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
-const ProductItem = ({ product, postCartItem }) => {
+const ProductItem = ({ product, postCartItem, addToCart }) => {
   return (
     <Card>
       <CardHeader
@@ -22,7 +22,7 @@ const ProductItem = ({ product, postCartItem }) => {
       </CardText>
       <CardActions>
         <FlatButton label="Details" />
-        <FlatButton label="Add to Cart" onClick={postCartItem}/>
+        <FlatButton label="Add to Cart" onClick={addToCart}/>
       </CardActions>
     </Card>
   )
@@ -35,7 +35,7 @@ const ProductItem = ({ product, postCartItem }) => {
 const mapState = (state, ownProps) => {
   return {
     product: ownProps.product,
-    cart: ownProps.cart
+    cart: state.cart
   }
 }
 
@@ -52,7 +52,25 @@ const mapDispatch = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(ProductItem)
+const mergeProps = (propsFromState, propsFromDispatch) => {
+  return {
+    ...propsFromDispatch,
+    ...propsFromState,
+    addToCart: () => {
+      let product = propsFromState.product
+      let cart = propsFromState.cart
+      let productInCart = cart.find((cartItem) => cartItem.id == product.id)
+      if (!productInCart) {
+        return propsFromDispatch.postCartItem();
+      } else {
+        console.log("Item is already in the cart!")
+      }
+      
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch, mergeProps)(ProductItem)
 
 ProductItem.propTypes = {
   product: PropTypes.object,
