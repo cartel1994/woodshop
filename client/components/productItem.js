@@ -46,7 +46,8 @@ const mapDispatch = (dispatch, ownProps) => {
         ...ownProps.product,
         quantity: 1
       }))
-      dispatch(toggleCart())  // Opens the cart to show the item added
+      dispatch(toggleCart())
+       // Opens the cart to show the item added
 
     }
   }
@@ -59,13 +60,13 @@ const mergeProps = (propsFromState, propsFromDispatch) => {
     addToCart: () => {
       let product = propsFromState.product
       let cart = propsFromState.cart
-      let productInCart = cart.find((cartItem) => cartItem.id == product.id)
-      if (!productInCart) {
-        return propsFromDispatch.postCartItem();
-      } else {
+      let productInCart;
+      if (cart) productInCart = cart.find((cartItem) => cartItem.id == product.id)
+      if (productInCart) {
         console.log("Item is already in the cart!")
+      } else {
+        return propsFromDispatch.postCartItem();
       }
-      
     }
   }
 }
