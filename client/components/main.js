@@ -42,7 +42,7 @@ const Main = (props) => {
     <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <AppBar
-          title="Wood Shop"
+          title={"Wood Shop"}
           iconElementRight={
             <div>
               <FlatButton label="Home"
@@ -52,14 +52,13 @@ const Main = (props) => {
               <FlatButton label="Login"
                 containerElement={<Link to="/login" />} />
               
-              { /* Shopping Cart*/ }
-              <Badge badgeContent={5} secondary={true} badgeStyle={{top:12, right:12}}>
+              { /* Shopping Cart */ }
+              <Badge badgeContent={5} secondary={true} badgeStyle={{top:14, right:14, fontSize: 14}}>
                 <IconButton>
                   <ShoppingCart />
                 </IconButton>
               </Badge>
             </div>
-
           }
         />
         <br />
