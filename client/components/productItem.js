@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Redux Stores
-import { postCartItem, toggleCart } from '../store'
+import { postCartItem, putCartItem, toggleCart } from '../store'
 
 // Material UI
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
-const ProductItem = ({ product, postCartItem, addToCart }) => {
+const ProductItem = ({ product, postCartItem, putCartItem, addToCart }) => {
   return (
     <Card>
       <CardHeader
@@ -46,9 +46,14 @@ const mapDispatch = (dispatch, ownProps) => {
         ...ownProps.product,
         quantity: 1
       }))
+      dispatch(toggleCart()) // Opens the cart to show the item added
+    },
+    putCartItem: () => {
+      dispatch(putCartItem({
+        ...ownProps.product,
+        quantity: 2
+      }))
       dispatch(toggleCart())
-       // Opens the cart to show the item added
-
     }
   }
 }
@@ -63,7 +68,7 @@ const mergeProps = (propsFromState, propsFromDispatch) => {
       let productInCart;
       if (cart) productInCart = cart.find((cartItem) => cartItem.id == product.id)
       if (productInCart) {
-        console.log("Item is already in the cart!")
+        return propsFromDispatch.putCartItem();
       } else {
         return propsFromDispatch.postCartItem();
       }

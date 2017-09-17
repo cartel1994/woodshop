@@ -42,6 +42,16 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
+export const putCartItem = (cartItem) => {
+  return (dispatch) => {
+    return axios.put('/api/cart', cartItem)
+      // .then(res => res.data)
+      // .then(updatedCartItem)
+      // .catch(err => console.error(err))
+  }
+}
+
+
 // REDUCER
 export default function (state = defaultCart, action) {
   switch (action.type) {
