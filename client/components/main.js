@@ -70,8 +70,6 @@ const Main = (props) => {
         <br />
         {children}
         <Cart />
-        }
-
       </div>
     </MuiThemeProvider>
   )
