@@ -4,12 +4,25 @@ import {connect} from 'react-redux'
 import ProductItem from './productItem'
 import SearchBar from './searchBar'
 
-export const ProductList = ({products, searchInput}) => {
+export const ProductList = ({products, searchInput, activeCategory}) => {
+
+  // filters by search bar input
   const filteredProducts = products.filter(product => {
     return product.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
   })
 
   if (filteredProducts.length || searchInput) products = filteredProducts
+
+  // filters by category
+  if (activeCategory > -1) products = products.filter(product => {
+    let returnValue = false
+    for (let i = 0; i < product.categories.length; i++) {
+      if (product.categories[i].id === activeCategory) {
+        returnValue = true
+      }
+    }
+    return returnValue
+  })
 
   return (
     <div>
@@ -30,7 +43,8 @@ export const ProductList = ({products, searchInput}) => {
 const mapState = (state) => {
   return {
     products: state.products,
-    searchInput: state.searchInput
+    searchInput: state.searchInput,
+    activeCategory: state.activeCategory
   }
 }
 

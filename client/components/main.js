@@ -68,7 +68,7 @@ const Main = (props) => {
             </div>
           }
         />
-        <div style={{display: 'grid', gridTemplateColumns: '20% 80%'}}>
+        <div style={{display: 'grid', gridTemplateColumns: '15% 84%', gridGap: '.5rem'}}>
           <CategoryList />
           {children}
         </div>

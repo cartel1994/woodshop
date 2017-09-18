@@ -5,7 +5,7 @@ const APPLY_CATEGORY = 'APPLY_CATEGORY'
 const defaultCategory = -1
 
 // ACTION CREATORS
-const applyCategory = categoryId => ({type: APPLY_CATEGORY, categoryId})
+export const applyCategory = categoryId => ({type: APPLY_CATEGORY, categoryId})
 
 // REDUCER
 export default function (state = defaultCategory, action) {

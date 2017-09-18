@@ -1,15 +1,23 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
-import {List, ListItem} from 'material-ui/List';
+import {List, ListItem} from 'material-ui/List'
+import Divider from 'material-ui/Divider'
+import {Card} from 'material-ui/Card'
+import {applyCategory} from '../store'
 
-const CategoryList = ({categories}) => (
-  <List>
-  {
-    categories.map(category =>
-      <ListItem key={category.id} primaryText={category.name} />
-    )
-  }
-  </List>
+const CategoryList = ({categories, filterByCategory}) => (
+  <Card>
+    <List>
+    {
+      categories.map(category =>
+        <div key={category.id}>
+          <ListItem primaryText={category.name} onClick={() => filterByCategory(category.id)} />
+          <Divider />
+        </div>
+      )
+    }
+    </List>
+  </Card>
 );
 
 const mapState = (state) => {
@@ -18,4 +26,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(CategoryList);
+const mapDispatch = (dispatch) => {
+  return {
+    filterByCategory (categoryId) {
+      dispatch(applyCategory(categoryId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(CategoryList);
