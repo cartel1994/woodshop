@@ -5,7 +5,10 @@ import Divider from 'material-ui/Divider'
 import {Card} from 'material-ui/Card'
 import {applyCategory} from '../store'
 
-const CategoryList = ({categories, filterByCategory}) => (
+const CategoryList = ({categories, filterByCategory}) => {
+  // sorts categories by id
+  categories = categories.sort((a, b) => a.id - b.id)
+  return (
   <Card>
     <List>
     {
@@ -18,7 +21,7 @@ const CategoryList = ({categories, filterByCategory}) => (
     }
     </List>
   </Card>
-);
+)};
 
 const mapState = (state) => {
   return {
