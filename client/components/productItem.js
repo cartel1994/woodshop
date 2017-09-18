@@ -21,7 +21,7 @@ const ProductItem = ({ product, postCartItem, putCartItem, addToCart, productInC
         avatar={product.photoUrl}
       />
       <CardActions>
-        <FlatButton label="Details" containerElement={<Link to={`/products/${product.id}`} />} />
+        <RaisedButton label="Details" secondary={true} containerElement={<Link to={`/products/${product.id}`} />} />
         {
           productInCart 
           ? <RaisedButton label="Added to Cart" disabled={true} />
