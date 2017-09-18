@@ -14,6 +14,7 @@ import Drawer from 'material-ui/Drawer'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const Cart = (props) => {
   const { showCart, toggleCart, cartItems } = props
@@ -32,15 +33,17 @@ const Cart = (props) => {
         cartItems && cartItems.map(cartItem => {
           return (
             <Card key={cartItem.id}>
-              <CardHeader
+              <CardTitle
                 title={cartItem.name}
               />
-              <CardActions>
+              <CardText>
                 <TextField
                   floatingLabelText="Quantity"
                   id="quantity"
                   defaultValue={cartItem.quantity} />
-                <FlatButton label="Remove" />
+              </CardText>
+              <CardActions>
+                <RaisedButton secondary={true} label="Remove" />
               </CardActions>
             </Card>
           )
