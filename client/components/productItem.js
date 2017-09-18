@@ -52,36 +52,11 @@ const mapDispatch = (dispatch, ownProps) => {
         quantity: 1
       }))
       dispatch(toggleCart()) // Opens the cart to show the item added
-    },
-    putCartItem: () => {
-      dispatch(putCartItem({
-        ...ownProps.product,
-        quantity: 2
-      }))
-      dispatch(toggleCart())
     }
   }
 }
 
-const mergeProps = (propsFromState, propsFromDispatch) => {
-  return {
-    ...propsFromDispatch,
-    ...propsFromState,
-    addToCart: () => {
-      let product = propsFromState.product
-      let cart = propsFromState.cart
-      let productInCart;
-      if (cart) productInCart = cart.find((cartItem) => cartItem.id == product.id)
-      if (productInCart) {
-        return propsFromDispatch.putCartItem();
-      } else {
-        return propsFromDispatch.postCartItem();
-      }
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch, mergeProps)(ProductItem)
+export default connect(mapState, mapDispatch)(ProductItem)
 
 ProductItem.propTypes = {
   product: PropTypes.object,
