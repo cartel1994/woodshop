@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 // Redux methods
-import { toggleCart, deleteCartItemFromBackend } from '../store'
+import { toggleCart, deleteCartItemFromBackend, updateCartItemInBackend } from '../store'
 
 // Material-UI components
 import IconButton from 'material-ui/IconButton';
@@ -14,7 +14,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const CartItem = (props) => {
-  const { cartItem, deleteCartItemFromBackend } = props
+  const { cartItem, deleteCartItemFromBackend, updateCartItemInBackend } = props
 
   return (
     <Card key={cartItem.id}>
@@ -25,7 +25,9 @@ const CartItem = (props) => {
         <TextField
           floatingLabelText="Quantity"
           id="quantity"
-          defaultValue={cartItem.quantity} />
+          defaultValue={cartItem.quantity} 
+          onChange={updateCartItemInBackend}
+        />
       </CardText>
       <CardActions>
         <RaisedButton secondary={true} label="Remove" onClick={deleteCartItemFromBackend}/>
@@ -46,6 +48,10 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     deleteCartItemFromBackend: () => {
       dispatch(deleteCartItemFromBackend(ownProps.cartItem))
+    },
+    updateCartItemInBackend: (event) => {
+      console.log(event.target.value)
+      dispatch(updateCartItemInBackend(event.target.value, ownProps.cartItem))
     }
   }
 }

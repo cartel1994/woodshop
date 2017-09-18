@@ -42,6 +42,17 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
+export const updateCartItemInBackend = (newQuantity, itemToUpdate) => {
+  return (dispatch) => {
+    return axios.put('/api/cart', { params: {
+      newQuantity,
+      itemToUpdate
+    }})
+      .then(res => res.data)
+      // .then(data => dispatch(removeCartItem(data.deletedId)))
+      // .catch(err => console.error(err))
+  }
+}
 export const deleteCartItemFromBackend = (itemToDelete) => {
   return (dispatch) => {
     return axios.delete('/api/cart', { params: {
