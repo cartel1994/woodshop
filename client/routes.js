@@ -4,8 +4,9 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, ProductList} from './components'
-import {me, fetchProducts} from './store'
+import {Main, Login, Signup, UserHome, ProductList, ProductDetails} from './components'
+import {me, fetchProducts, fetchCartItems} from './store'
+
 
 /**
  * COMPONENT
@@ -26,14 +27,15 @@ class Routes extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             {
-              isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path='/home' component={UserHome} />
-                </Switch>
+              // isLoggedIn &&
+              //   <Switch>
+              //     {/* Routes placed here are only available after logging in */}
+              //     <Route path='/home' component={UserHome} />
+              //   </Switch>
             }
-            <Route component={ProductList} />
-          </Switch>
+            <Route exact path='/' component={ProductList} />
+            <Route path='/products/:productId' component={ProductDetails} />
+            </Switch>
         </Main>
       </Router>
     )
@@ -56,6 +58,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(fetchProducts())
+      dispatch(fetchCartItems())
     }
   }
 }
@@ -67,5 +70,5 @@ export default connect(mapState, mapDispatch)(Routes)
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }
