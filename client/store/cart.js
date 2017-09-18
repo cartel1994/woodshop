@@ -20,10 +20,6 @@ export const addCartItem = (newCartItem) => {
   return action
 }
 
-// export const changeCartItemQuantity = () => {
-
-// }
-
 // THUNK CREATORS
 export const fetchCartItems = () => {
   return (dispatch) => {
@@ -42,6 +38,16 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
+export const sendDeleteCartItemToBackend = (removedItem) => {
+  return (dispatch) => {
+    return axios.delete('/api/cart', removedItem)
+      .then(res => res.data)
+      .then(removedItem => dispatch(removeCartItemFromState(removedItem)))
+      .catch(err => console.error(err))
+  }
+}
+
+// Export changeCartItemQuantity
 export const putCartItem = (cartItem) => {
   return (dispatch) => {
     return axios.put('/api/cart', cartItem)
