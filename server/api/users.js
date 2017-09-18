@@ -12,3 +12,12 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+// gets Username info by UserId (for a review)
+router.get('/name', (req, res, next) => {
+  User.findAll()
+    .then( users => {
+      return res.json(users)
+    })
+    .catch(next)
+})

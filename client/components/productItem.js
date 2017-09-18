@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { Link } from 'react-router-dom'
+
 // Redux Stores
 import { postCartItem, putCartItem, toggleCart } from '../store'
 
@@ -17,12 +19,14 @@ const ProductItem = ({ product, postCartItem, putCartItem, addToCart }) => {
         subtitle={`$${product.price}`}
         avatar={product.photoUrl}
       />
-      <CardText>
-        {product.details}
-      </CardText>
       <CardActions>
+<<<<<<< HEAD
         <FlatButton label="Details" />
         <FlatButton label="Add to Cart" onClick={addToCart}/>
+=======
+        <FlatButton label="Details" containerElement={<Link to={`/products/${product.id}`} />} />
+        <FlatButton label="Add to Cart" onClick={postCartItem}/>
+>>>>>>> master
       </CardActions>
     </Card>
   )
@@ -81,4 +85,5 @@ export default connect(mapState, mapDispatch, mergeProps)(ProductItem)
 ProductItem.propTypes = {
   product: PropTypes.object,
   postCartItem: PropTypes.func
+
 }
