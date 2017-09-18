@@ -18,16 +18,18 @@ router.post('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   console.log("=============")
-  console.log(req.body)
-  
+  console.log(req.query)
+  req.session.cart = req.session.cart.filter((cartItem) => cartItem.id != req.query.deleteId)
+  console.log(req.session.cart)
+  res.status(201).end()
 })
 
-router.put('/', (req, res, next) => {
-  console.log("==============")
-  console.log(req.body)
+// router.put('/', (req, res, next) => {
+//   console.log("==============")
+//   console.log(req.body)
   
 
-  // if (!req.session.cart) req.session.cart = []
-  // req.session.cart = [...req.session.cart, req.body];
-  // res.status(201).json(req.session.cart[req.session.cart.length - 1])
-})
+//   // if (!req.session.cart) req.session.cart = []
+//   // req.session.cart = [...req.session.cart, req.body];
+//   // res.status(201).json(req.session.cart[req.session.cart.length - 1])
+// })

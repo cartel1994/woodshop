@@ -4,36 +4,33 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 // Redux methods
-import { toggleCart } from '../store'
+import { toggleCart, deleteCartItemFromBackend } from '../store'
 
 // Material-UI components
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
-import Badge from 'material-ui/Badge'
-import Drawer from 'material-ui/Drawer'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const CartItem = (props) => {
-  const { cartItem } = props
+  const { cartItem, deleteCartItemFromBackend } = props
 
   return (
-            <Card key={cartItem.id}>
-              <CardTitle
-                title={cartItem.name}
-              />
-              <CardText>
-                <TextField
-                  floatingLabelText="Quantity"
-                  id="quantity"
-                  defaultValue={cartItem.quantity} />
-              </CardText>
-              <CardActions>
-                <RaisedButton secondary={true} label="Remove" />
-              </CardActions>
-            </Card>
+    <Card key={cartItem.id}>
+      <CardTitle
+        title={cartItem.name}
+      />
+      <CardText>
+        <TextField
+          floatingLabelText="Quantity"
+          id="quantity"
+          defaultValue={cartItem.quantity} />
+      </CardText>
+      <CardActions>
+        <RaisedButton secondary={true} label="Remove" onClick={deleteCartItemFromBackend}/>
+      </CardActions>
+    </Card>
   )
 }
 
@@ -47,9 +44,10 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    // toggleCart() {
-    //   dispatch(toggleCart())
-    // }
+    deleteCartItemFromBackend: () => {
+      console.log(ownProps.cartItem)
+      dispatch(deleteCartItemFromBackend(ownProps.cartItem))
+    }
   }
 }
 

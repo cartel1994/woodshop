@@ -40,7 +40,7 @@ const mapState = (state, ownProps) => {
   return {
     product: ownProps.product,
     cart: state.cart,
-    productInCart: state.cart.find((cartItem) => cartItem.id == ownProps.product.id)
+    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == ownProps.product.id)
   }
 }
 

@@ -38,24 +38,26 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
-export const sendDeleteCartItemToBackend = (removedItem) => {
+export const deleteCartItemFromBackend = (itemToDelete) => {
   return (dispatch) => {
-    return axios.delete('/api/cart', removedItem)
+    return axios.delete('/api/cart', { params: {
+      deleteId: itemToDelete.id
+    }})
       .then(res => res.data)
-      .then(removedItem => dispatch(removeCartItemFromState(removedItem)))
+      // .then(deletedItem => dispatch(removeCartItemFromState(deletedItem)))
       .catch(err => console.error(err))
   }
 }
 
-// Export changeCartItemQuantity
-export const putCartItem = (cartItem) => {
-  return (dispatch) => {
-    return axios.put('/api/cart', cartItem)
-      // .then(res => res.data)
-      // .then(updatedCartItem)
-      // .catch(err => console.error(err))
-  }
-}
+// // Export changeCartItemQuantity
+// export const putCartItem = (cartItem) => {
+//   return (dispatch) => {
+//     return axios.put('/api/cart', cartItem)
+//       // .then(res => res.data)
+//       // .then(updatedCartItem)
+//       // .catch(err => console.error(err))
+//   }
+// }
 
 
 // REDUCER
