@@ -22,9 +22,7 @@ router.put('/', (req, res, next) => {
   let updatedItem = itemToUpdate
   updatedItem.quantity = newQuantity
   req.session.cart = req.session.cart.map(cartItem => {
-    if (cartItem.id == itemToUpdate.id) {
-      return updatedItem
-    }
+    if (cartItem.id == itemToUpdate.id) { return updatedItem }
   })
   res.status(200).json(updatedItem)
 })
