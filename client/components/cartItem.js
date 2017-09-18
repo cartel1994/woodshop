@@ -45,7 +45,6 @@ const mapState = (state, ownProps) => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     deleteCartItemFromBackend: () => {
-      console.log(ownProps.cartItem)
       dispatch(deleteCartItemFromBackend(ownProps.cartItem))
     }
   }

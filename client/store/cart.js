@@ -14,9 +14,13 @@ export const getCartItems = (cartItems) => {
   return action
 }
 
-// TODO: This should be refactored into an axios post into sessions
 export const addCartItem = (newCartItem) => {
   const action = { type: ADD_CART_ITEM, newCartItem }
+  return action
+}
+
+export const removeCartItem = (deletedItemId) => {
+  const action = { type: REMOVE_CART_ITEM, deletedItemId }
   return action
 }
 
@@ -41,10 +45,10 @@ export const postCartItem = (cartItem) =>
 export const deleteCartItemFromBackend = (itemToDelete) => {
   return (dispatch) => {
     return axios.delete('/api/cart', { params: {
-      deleteId: itemToDelete.id
+      idToDelete: itemToDelete.id
     }})
       .then(res => res.data)
-      // .then(deletedItem => dispatch(removeCartItemFromState(deletedItem)))
+      .then(data => dispatch(removeCartItem(data.deletedId)))
       .catch(err => console.error(err))
   }
 }
@@ -67,6 +71,8 @@ export default function (state = defaultCart, action) {
       return action.cartItems
     case ADD_CART_ITEM:
       return [...state, action.newCartItem]
+    case REMOVE_CART_ITEM:
+      return state.filter((cartItem) => cartItem.id != action.deletedItemId)
     default:
       return state
   }

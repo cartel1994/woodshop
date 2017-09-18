@@ -3,13 +3,13 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   let cart = req.session.cart
-  console.log("==============")
+  console.log("====== GET =========")
   console.log(req.session)
   res.json(cart)
 })
 
 router.post('/', (req, res, next) => {
-  console.log("==============")
+  console.log("====== POST ========")
   console.log(req.body)
   if (!req.session.cart) req.session.cart = []
   req.session.cart = [...req.session.cart, req.body];
@@ -17,11 +17,11 @@ router.post('/', (req, res, next) => {
 })
 
 router.delete('/', (req, res, next) => {
-  console.log("=============")
+  console.log("====== DELETE ======")
   console.log(req.query)
-  req.session.cart = req.session.cart.filter((cartItem) => cartItem.id != req.query.deleteId)
-  console.log(req.session.cart)
-  res.status(201).end()
+  const itemToDelete = req.session.cart.find((cartItem) => cartItem.id == req.query.idToDelete)
+  req.session.cart = req.session.cart.filter((cartItem) => cartItem.id != req.query.idToDelete)
+  res.json({ deletedId: req.query.idToDelete}).status(204)
 })
 
 // router.put('/', (req, res, next) => {
