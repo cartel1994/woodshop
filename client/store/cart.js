@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
+const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 
 // INITIAL STATE
 const defaultCart = []
@@ -21,6 +22,11 @@ export const addCartItem = (newCartItem) => {
 
 export const removeCartItem = (deletedItemId) => {
   const action = { type: REMOVE_CART_ITEM, deletedItemId }
+  return action
+}
+
+export const updateCartItemInState = (updatedCartItem) => {
+  const action = { type: UPDATE_CART_ITEM, updatedCartItem }
   return action
 }
 
@@ -42,6 +48,18 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
+export const updateCartItemInBackend = (newQuantity, itemToUpdate) => {
+  return (dispatch) => {
+    return axios.put('/api/cart', { params: {
+      newQuantity,
+      itemToUpdate
+    }})
+      .then(res => res.data)
+      .then(updatedCartItem => dispatch(updateCartItemInState(updatedCartItem)))
+      // .then(data => dispatch(removeCartItem(data.deletedId)))
+      // .catch(err => console.error(err))
+  }
+}
 export const deleteCartItemFromBackend = (itemToDelete) => {
   return (dispatch) => {
     return axios.delete('/api/cart', { params: {
@@ -73,6 +91,10 @@ export default function (state = defaultCart, action) {
       return [...state, action.newCartItem]
     case REMOVE_CART_ITEM:
       return state.filter((cartItem) => cartItem.id != action.deletedItemId)
+    case UPDATE_CART_ITEM:
+      return state.map((cartItem) => {
+        if (cartItem.id == action.updatedCartItem.id) return action.updatedCartItem
+      })
     default:
       return state
   }

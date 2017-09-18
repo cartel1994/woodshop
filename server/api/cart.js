@@ -16,6 +16,17 @@ router.post('/', (req, res, next) => {
   res.status(201).json(req.session.cart[req.session.cart.length - 1])
 })
 
+router.put('/', (req, res, next) => {
+  console.log("====== PUT ========")
+  let { newQuantity, itemToUpdate } = req.body.params
+  let updatedItem = itemToUpdate
+  updatedItem.quantity = newQuantity
+  req.session.cart = req.session.cart.map(cartItem => {
+    if (cartItem.id == itemToUpdate.id) { return updatedItem }
+  })
+  res.status(200).json(updatedItem)
+})
+
 router.delete('/', (req, res, next) => {
   console.log("====== DELETE ======")
   console.log(req.query)

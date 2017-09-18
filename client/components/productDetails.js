@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import ProductItem from './productItem'
-import {Card, CardMedia, CardTitle, CardActions, CardHeader, CardText} from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
+import { Card, CardMedia, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import RaisedButton from 'material-ui/RaisedButton'
 import ReviewItem from './reviewItem'
 
-import {fetchReviews, fetchUsers} from '../store'
+import { fetchReviews, fetchUsers, postCartItem, toggleCart } from '../store'
 
 
 export class ProductDetails extends Component {
@@ -18,13 +18,14 @@ export class ProductDetails extends Component {
   }
 
   render() {
-    const product = this.props.product
-    const reviews = this.props.reviews
-    const users = this.props.users
+    // const product = this.props.product
+    // const reviews = this.props.reviews
+    // const users = this.props.users
+    const { product, reviews, users, postCartItem, productInCart } = this.props
 
     let sumScore = 0;
     reviews.forEach(review => {
-      sumScore+= review.rating
+      sumScore += review.rating
     })
     const meanScore = Math.round(sumScore / reviews.length * 10) / 10;
 
@@ -32,11 +33,11 @@ export class ProductDetails extends Component {
       <div>
         {
           product && (
-            <Card style={{maxWidth: `800px`}}>
+            <Card style={{ maxWidth: `800px` }}>
               <CardMedia
                 overlay={<CardTitle title={product.name} subtitle={`$${product.price}`} />}
               >
-                <img  style={{maxHeight: `600px`, objectFit: `contain`}} src={product.photoUrl} alt="" />
+                <img style={{ maxHeight: `600px`, objectFit: `contain` }} src={product.photoUrl} alt="" />
               </CardMedia>
               <CardText>
                 <h3>Average Score: {meanScore}</h3>
@@ -44,7 +45,11 @@ export class ProductDetails extends Component {
                 <p>{product.details}</p>
               </CardText>
               <CardActions>
-                <FlatButton label="Add to Cart" />
+                {
+                  productInCart
+                    ? <RaisedButton label="Added to Cart" disabled={true} />
+                    : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem} />
+                }
               </CardActions>
             </Card>
           )
@@ -73,16 +78,24 @@ const mapState = (state, ownProps) => {
     product,
     reviews: state.reviews,
     users: state.users,
+    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId)
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-     fetchReviews: (productId) => {
+    fetchReviews: (productId) => {
       dispatch(fetchReviews(productId))
     },
     fetchUsers: () => {
       dispatch(fetchUsers())
+    },
+    postCartItem: () => {
+      dispatch(postCartItem({
+        ...ownProps.product,
+        quantity: 1
+      }))
+      dispatch(toggleCart()) // Opens the cart to show the item added
     }
   }
 }
