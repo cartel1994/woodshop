@@ -7,9 +7,10 @@ import product from './product'
 import reviews from './reviews'
 import users from './users'
 import searchInput from './searchInput'
-import filters from './filters'
+import activeCategory from './activeCategory'
 import cart from './cart'
 import toggleCart from './toggleCart'
+import categories from './categories'
 
 const reducer = combineReducers({
   user,
@@ -20,7 +21,8 @@ const reducer = combineReducers({
   reviews,
   users,
   cart,
-  toggleCart
+  activeCategory,
+  categories
 })
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -30,9 +32,10 @@ export default store
 export * from './user'
 export * from './products'
 export * from './searchInput'
-export * from './filters'
+export * from './activeCategory'
 export * from './cart'
 export * from './toggleCart'
 export * from './product'
 export * from './reviews'
 export * from './users'
+export * from './categories'
