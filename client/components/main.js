@@ -44,7 +44,7 @@ const muiTheme = getMuiTheme({
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn, showCart, toggleCart } = props
+  const { children, handleClick, isLoggedIn, showCart, toggleCart, numCartItems } = props
 
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
@@ -60,7 +60,7 @@ const Main = (props) => {
               <FlatButton label="Login"
                 containerElement={<Link to="/login" />} />
               { /* Shopping Cart */}
-              <Badge badgeContent={5} secondary={true} badgeStyle={{ top: 14, right: 14, fontSize: 14 }}>
+              <Badge badgeContent={numCartItems} secondary={true} badgeStyle={{ top: 14, right: 14, fontSize: 14 }}>
                 <IconButton onClick={toggleCart}>
                   <ShoppingCart />
                 </IconButton>
@@ -84,7 +84,8 @@ const Main = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    showCart: state.toggleCart
+    showCart: state.toggleCart,
+    numCartItems: state.cart.length
   }
 }
 

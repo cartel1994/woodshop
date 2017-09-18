@@ -6,6 +6,9 @@ import { withRouter } from 'react-router-dom'
 // Redux methods
 import { toggleCart } from '../store'
 
+// React components
+import CartItem from './cartItem'
+
 // Material-UI components
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
@@ -14,11 +17,10 @@ import Drawer from 'material-ui/Drawer'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const Cart = (props) => {
   const { showCart, toggleCart, cartItems } = props
-
-  console.log(cartItems)
 
   return (
     <Drawer
@@ -30,24 +32,8 @@ const Cart = (props) => {
       onRequestChange={(change) => toggleCart()}
     >
       <h1>Cart</h1>
-      {
-        cartItems && cartItems.map(cartItem => {
-          return (
-            <Card key={cartItem.id}>
-              <CardHeader
-                title={cartItem.name}
-              />
-              <CardActions>
-                <TextField
-                  floatingLabelText="Quantity"
-                  id="quantity"
-                  defaultValue={cartItem.quantity} />
-                <FlatButton label="Remove" />
-              </CardActions>
-            </Card>
-          )
-        })
-      }
+      { cartItems && 
+        cartItems.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />) }
     </Drawer>
   )
 }
