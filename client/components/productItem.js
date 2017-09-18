@@ -10,8 +10,9 @@ import { postCartItem, putCartItem, toggleCart } from '../store'
 // Material UI
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
-const ProductItem = ({ product, postCartItem, putCartItem, addToCart }) => {
+const ProductItem = ({ product, postCartItem, putCartItem, addToCart, productInCart }) => {
   return (
     <Card>
       <CardHeader
@@ -20,13 +21,12 @@ const ProductItem = ({ product, postCartItem, putCartItem, addToCart }) => {
         avatar={product.photoUrl}
       />
       <CardActions>
-<<<<<<< HEAD
-        <FlatButton label="Details" />
-        <FlatButton label="Add to Cart" onClick={addToCart}/>
-=======
         <FlatButton label="Details" containerElement={<Link to={`/products/${product.id}`} />} />
-        <FlatButton label="Add to Cart" onClick={postCartItem}/>
->>>>>>> master
+        {
+          productInCart 
+          ? <RaisedButton label="Added to Cart" disabled={true} />
+          : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem}/>
+        }
       </CardActions>
     </Card>
   )
@@ -39,7 +39,8 @@ const ProductItem = ({ product, postCartItem, putCartItem, addToCart }) => {
 const mapState = (state, ownProps) => {
   return {
     product: ownProps.product,
-    cart: state.cart
+    cart: state.cart,
+    productInCart: state.cart.find((cartItem) => cartItem.id == ownProps.product.id)
   }
 }
 
