@@ -6,9 +6,6 @@ import { withRouter } from 'react-router-dom'
 // Redux methods
 import { toggleCart } from '../store'
 
-// React components
-import CartItem from './cartItem'
-
 // Material-UI components
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
@@ -19,22 +16,24 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const Cart = (props) => {
-  const { showCart, toggleCart, cartItems } = props
+const CartItem = (props) => {
+  const { cartItem } = props
 
   return (
-    <Drawer
-      docked={false}
-      width={400}
-      open={showCart}
-      openSecondary={true}
-      zDepth={2}
-      onRequestChange={(change) => toggleCart()}
-    >
-      <h1>Cart</h1>
-      { cartItems && 
-        cartItems.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />) }
-    </Drawer>
+            <Card key={cartItem.id}>
+              <CardTitle
+                title={cartItem.name}
+              />
+              <CardText>
+                <TextField
+                  floatingLabelText="Quantity"
+                  id="quantity"
+                  defaultValue={cartItem.quantity} />
+              </CardText>
+              <CardActions>
+                <RaisedButton secondary={true} label="Remove" />
+              </CardActions>
+            </Card>
   )
 }
 
@@ -43,27 +42,25 @@ const Cart = (props) => {
  */
 const mapState = (state, ownProps) => {
   return {
-    showCart: state.toggleCart,
-    cartItems: state.cart
   }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    toggleCart() {
-      dispatch(toggleCart())
-    }
+    // toggleCart() {
+    //   dispatch(toggleCart())
+    // }
   }
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Cart))
+export default connect(mapState, mapDispatch)(CartItem)
 
 /**
  * PROP TYPES
  */
-Cart.propTypes = {
-  toggleCart: PropTypes.func.isRequired,
-  showCart: PropTypes.bool.isRequired
+CartItem.propTypes = {
+  // toggleCart: PropTypes.func.isRequired,
+  // showCart: PropTypes.bool.isRequired
 }
