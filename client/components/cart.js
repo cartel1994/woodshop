@@ -8,6 +8,7 @@ import { toggleCart } from '../store'
 
 // React components
 import CartItem from './cartItem'
+import CheckoutContainer from './checkoutContainer'
 
 // Material-UI components
 import IconButton from 'material-ui/IconButton';
@@ -31,8 +32,9 @@ const Cart = (props) => {
       zDepth={2}
       onRequestChange={(change) => toggleCart()}
     >
+      <CheckoutContainer />
       <h1>Cart</h1>
-      { cartItems && 
+      { cartItems &&
         cartItems.map(cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />) }
     </Drawer>
   )
