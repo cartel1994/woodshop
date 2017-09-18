@@ -1,14 +1,21 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {List, ListItem} from 'material-ui/List';
 
-const ListExampleSimple = () => (
+const CategoryList = ({categories}) => (
   <List>
-    <ListItem primaryText="Inbox" />
-    <ListItem primaryText="Starred" />
-    <ListItem primaryText="Sent mail" />
-    <ListItem primaryText="Drafts" />
-    <ListItem primaryText="Inbox" />
+  {
+    categories.map(category =>
+      <ListItem key={category.id} primaryText={category.name} />
+    )
+  }
   </List>
 );
 
-export default ListExampleSimple;
+const mapState = (state) => {
+  return {
+    categories: state.categories
+  }
+}
+
+export default connect(mapState)(CategoryList);
