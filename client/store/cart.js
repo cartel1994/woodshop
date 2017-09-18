@@ -14,15 +14,15 @@ export const getCartItems = (cartItems) => {
   return action
 }
 
-// TODO: This should be refactored into an axios post into sessions
 export const addCartItem = (newCartItem) => {
   const action = { type: ADD_CART_ITEM, newCartItem }
   return action
 }
 
-// export const changeCartItemQuantity = () => {
-
-// }
+export const removeCartItem = (deletedItemId) => {
+  const action = { type: REMOVE_CART_ITEM, deletedItemId }
+  return action
+}
 
 // THUNK CREATORS
 export const fetchCartItems = () => {
@@ -42,6 +42,28 @@ export const postCartItem = (cartItem) =>
       })
       .catch(err => console.error(err))
 
+export const deleteCartItemFromBackend = (itemToDelete) => {
+  return (dispatch) => {
+    return axios.delete('/api/cart', { params: {
+      idToDelete: itemToDelete.id
+    }})
+      .then(res => res.data)
+      .then(data => dispatch(removeCartItem(data.deletedId)))
+      .catch(err => console.error(err))
+  }
+}
+
+// // Export changeCartItemQuantity
+// export const putCartItem = (cartItem) => {
+//   return (dispatch) => {
+//     return axios.put('/api/cart', cartItem)
+//       // .then(res => res.data)
+//       // .then(updatedCartItem)
+//       // .catch(err => console.error(err))
+//   }
+// }
+
+
 // REDUCER
 export default function (state = defaultCart, action) {
   switch (action.type) {
@@ -49,6 +71,8 @@ export default function (state = defaultCart, action) {
       return action.cartItems
     case ADD_CART_ITEM:
       return [...state, action.newCartItem]
+    case REMOVE_CART_ITEM:
+      return state.filter((cartItem) => cartItem.id != action.deletedItemId)
     default:
       return state
   }
