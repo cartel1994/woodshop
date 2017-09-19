@@ -9,7 +9,6 @@ import { logout, toggleCart } from '../store'
 // React Components
 import ProductList from './productList'
 import Cart from './cart'
-import CategoryList from './categoryList'
 
 // Material UI
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -68,10 +67,7 @@ const Main = (props) => {
             </div>
           }
         />
-        <div style={{display: 'grid', gridTemplateColumns: '15% 84%', gridGap: '.5rem'}}>
-          <CategoryList />
-          {children}
-        </div>
+        {children}
         <Cart />
       </div>
     </MuiThemeProvider>
