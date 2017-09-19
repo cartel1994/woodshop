@@ -5,6 +5,7 @@ router.get('/', (req, res, next) => {
   let cart = req.session.cart
   console.log("====== GET =========")
   console.log(req.session)
+  if (req.session.cart == "") cart = []    // Fixes bug when we delete session during debugging
   res.json(cart)
 })
 
