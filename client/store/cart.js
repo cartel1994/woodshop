@@ -5,6 +5,7 @@ const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
+const KILL_CART = 'KILL_CART'
 
 // INITIAL STATE
 const defaultCart = []
@@ -27,6 +28,11 @@ export const removeCartItem = (deletedItemId) => {
 
 export const updateCartItemInState = (updatedCartItem) => {
   const action = { type: UPDATE_CART_ITEM, updatedCartItem }
+  return action
+}
+
+export const totalDestructionOfCart = () => {
+  const action = { type: KILL_CART}
   return action
 }
 
@@ -71,6 +77,15 @@ export const deleteCartItemFromBackend = (itemToDelete) => {
   }
 }
 
+export const createNewPurchaseOnTheBackend = ({email, shippingInfo}, orders) => {
+  return (dispatch) => {
+    return axios.post('/api/purchase', {email, shippingInfo, orders})
+      .then(res => res.data)
+      .then(data => dispatch(totalDestructionOfCart()))
+      .catch(err => console.error(err))
+  }
+}
+
 // // Export changeCartItemQuantity
 // export const putCartItem = (cartItem) => {
 //   return (dispatch) => {
@@ -96,6 +111,8 @@ export default function (state = defaultCart, action) {
         if (cartItem.id == action.updatedCartItem.id) return action.updatedCartItem
         return cartItem
       })
+    case KILL_CART:
+      return []
     default:
       return state
   }

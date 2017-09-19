@@ -23,7 +23,7 @@ const ProductItem = ({ product, postCartItem, putCartItem, addToCart, productInC
       <CardActions>
         <RaisedButton label="Details" secondary={true} containerElement={<Link to={`/products/${product.id}`} />} />
         {
-          productInCart 
+          productInCart
           ? <RaisedButton label="Added to Cart" disabled={true} />
           : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem}/>
         }

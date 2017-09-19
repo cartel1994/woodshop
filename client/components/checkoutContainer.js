@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 // Redux methods
-import {} from '../store'
+import { createNewPurchaseOnTheBackend } from '../store'
 
 // Material-UI components
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
@@ -35,7 +35,7 @@ const CheckoutContainer = (props) => {
     /><br />
       </CardText>
       <CardActions>
-        <RaisedButton label="Checkout" onClick={() => handlePurchase(totalCost)}/>
+        <RaisedButton label="Checkout" disabled={cart.length < 1} onClick={() => handlePurchase(totalCost, cart)}/>
         <p>Total Value: {totalCost}</p>
       </CardActions>
     </Card>
@@ -48,15 +48,32 @@ const mapState = (state, ownProps) => {
   }
 }
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = (dispatch) => {
   return {
-    handlePurchase: (totalCost) => {
-      console.log("===EMAIL===")
-      console.log(document.getElementById('emailAddress').value)
-      console.log("===POST===")
-      console.log(document.getElementById('mailingAddress').value)
-      console.log("===VALUE===")
-      console.log(totalCost)
+    handlePurchase: (totalCost, cart) => {
+      // makes quantity a number
+      // transform cart into orders
+      const orders = cart.map(item => {
+        let { id, price, quantity } = item
+        quantity = parseInt(quantity)
+        return {
+          price, quantity, productId: id
+        }
+      })
+
+      const email = document.getElementById('emailAddress').value
+      const shippingInfo = document.getElementById('mailingAddress').value
+
+      dispatch(createNewPurchaseOnTheBackend({ email: email, shippingInfo: shippingInfo }, orders))
+
+      // console.log("===EMAIL===")
+      // console.log(document.getElementById('emailAddress').value)
+      // console.log("===POST===")
+      // console.log(document.getElementById('mailingAddress').value)
+      // console.log("===VALUE===")
+      // console.log(totalCost)
+      // console.log("===CART===")
+      // console.log(cart)
     }
   }
 }
