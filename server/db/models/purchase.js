@@ -7,7 +7,7 @@ const Purchase = db.define('purchase', {
     allowNull: false
   },
   shippingInfo: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     allowNull: false
   },
   paymentInfo: {
@@ -20,15 +20,15 @@ const Purchase = db.define('purchase', {
   }
 }, {
   getterMethods: {
-    totalPrice: function () {
-      return this.getOrders()
-        .then(orders => {
-          const sum = orders.reduce((acc, curr) => {
-            return acc + curr.totalCost // an Order instance method
-          })
-          return sum / 100
-        })
-    }
+    // totalPrice: function () {
+    //   return this.getOrders()
+    //     .then(orders => {
+    //       const sum = orders.reduce((acc, curr) => {
+    //         return acc + curr.totalCost // an Order instance method
+    //       })
+    //       return sum / 100
+    //     })
+    // }
   }
 })
 
