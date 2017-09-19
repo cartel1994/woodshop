@@ -44,7 +44,7 @@ const muiTheme = getMuiTheme({
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn, showCart, toggleCart, numCartItems } = props
+  const { children, logout, isLoggedIn, showCart, toggleCart, numCartItems } = props
 
   const style = {
     margin: 10,
@@ -67,7 +67,7 @@ const Main = (props) => {
                   ? (<span>
                       <RaisedButton 
                         label="Logout" 
-                        containerElement={<Link to="/logout" />}
+                        onClick={logout}
                         style={style}
                       />
                     </span>)
@@ -115,7 +115,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
+    logout() {
       dispatch(logout())
     },
     toggleCart() {
