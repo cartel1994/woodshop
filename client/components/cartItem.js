@@ -50,7 +50,6 @@ const mapDispatch = (dispatch, ownProps) => {
       dispatch(deleteCartItemFromBackend(ownProps.cartItem))
     },
     updateCartItemInBackend: (event) => {
-      console.log(event.target.value)
       dispatch(updateCartItemInBackend(event.target.value, ownProps.cartItem))
     }
   }
