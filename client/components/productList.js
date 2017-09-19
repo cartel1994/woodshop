@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProductItem from './productItem'
 import SearchBar from './searchBar'
+import CategoryList from './categoryList'
 
 export const ProductList = ({products, searchInput, activeCategory}) => {
 
@@ -25,16 +26,20 @@ export const ProductList = ({products, searchInput, activeCategory}) => {
   })
 
   return (
-    <div>
-      <h1>Product List</h1>
-      <SearchBar />
-      <br />
+    <div style={{display: 'grid', gridTemplateColumns: '15% 84%', gridGap: '.5rem'}}>
+      <CategoryList />
       <div>
-        {
-          products.length
-          ? products.map(product => product.available && <ProductItem key={product.id} product={product}/>)
-          : <p>There are no products matching that name</p>
-        }
+        <br />
+        <SearchBar />
+        <h1>Product List</h1>
+        <br />
+        <div>
+          {
+            products.length
+            ? products.map(product => product.available && <ProductItem key={product.id} product={product}/>)
+            : <p>There are no products matching that name</p>
+          }
+        </div>
       </div>
     </div>
   )
