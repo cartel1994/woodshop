@@ -94,6 +94,7 @@ export default function (state = defaultCart, action) {
     case UPDATE_CART_ITEM:
       return state.map((cartItem) => {
         if (cartItem.id == action.updatedCartItem.id) return action.updatedCartItem
+        return cartItem
       })
     default:
       return state
