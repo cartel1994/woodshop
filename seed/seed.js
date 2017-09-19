@@ -62,7 +62,6 @@ const makeAssociations = () => {
         let randomProduct = products[ getRandomIndex(products) ]
         let randomPurchase = purchases[ getRandomIndex(purchases)]
         const newOrder = Order.build({
-          id: order.id,
           quantity: order.quantity,
           price: randomProduct.price * order.quantity,
           productId: randomProduct.id,
@@ -74,7 +73,7 @@ const makeAssociations = () => {
     // ProductCategories: assigns products multiple categories
     .then(() => Product.findAll()
     .then(products => {
-      return Promise.all(products.map(product => product.setCategories([getRandomIndex(categories), getRandomIndex(categories)])))
+      return Promise.all(products.map(product => product.setCategories([getRandomIndex(categories) + 1])))
     }))
     .catch(err => console.log(err))
 }
