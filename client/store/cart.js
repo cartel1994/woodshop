@@ -77,9 +77,9 @@ export const deleteCartItemFromBackend = (itemToDelete) => {
   }
 }
 
-export const createNewPurchaseOnTheBackend = (purchase, cart) => {
+export const createNewPurchaseOnTheBackend = ({email, shippingInfo}, orders) => {
   return (dispatch) => {
-    return axios.post('/api/purchase', {purchase, cart})
+    return axios.post('/api/purchase', {email, shippingInfo, orders})
       .then(res => res.data)
       .then(data => dispatch(totalDestructionOfCart()))
       .catch(err => console.error(err))

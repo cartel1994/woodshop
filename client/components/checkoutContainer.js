@@ -52,12 +52,19 @@ const mapDispatch = (dispatch) => {
   return {
     handlePurchase: (totalCost, cart) => {
       // makes quantity a number
-      cart.forEach(item => item.quantity = parseInt(item.quantity))
+      // transform cart into orders
+      const orders = cart.map(item => {
+        let { id, price, quantity } = item
+        quantity = parseInt(quantity)
+        return {
+          price, quantity, productId: id
+        }
+      })
 
       const email = document.getElementById('emailAddress').value
       const shippingInfo = document.getElementById('mailingAddress').value
 
-      dispatch(createNewPurchaseOnTheBackend({ email: email, shippingInfo: shippingInfo }, cart))
+      dispatch(createNewPurchaseOnTheBackend({ email: email, shippingInfo: shippingInfo }, orders))
 
       // console.log("===EMAIL===")
       // console.log(document.getElementById('emailAddress').value)

@@ -7,9 +7,9 @@ router.post('/', (req, res, next) => {
   console.log("====== POST ========")
   console.log(req.body)
   // kills the cart
-  // req.session.cart = []
+  req.session.cart = []
 
-  Purchase.create(req.body.purchase)
+  Purchase.create(req.body, { include: [Order] } )
   .then(purchase => res.json(purchase))
   .catch(next)
 
