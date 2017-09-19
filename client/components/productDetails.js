@@ -6,7 +6,7 @@ import { Card, CardMedia, CardTitle, CardActions, CardHeader, CardText } from 'm
 import RaisedButton from 'material-ui/RaisedButton'
 import ReviewItem from './reviewItem'
 
-import { fetchReviews, fetchUsers, postCartItem, toggleCart } from '../store'
+import { fetchReviews, fetchUsers, postCartItem, toggleCart, postReview } from '../store'
 
 
 export class ProductDetails extends Component {
@@ -18,10 +18,7 @@ export class ProductDetails extends Component {
   }
 
   render() {
-    // const product = this.props.product
-    // const reviews = this.props.reviews
-    // const users = this.props.users
-    const { product, reviews, users, postCartItem, productInCart } = this.props
+    const { product, reviews, users, postCartItem, productInCart, isLoggedIn, postReview } = this.props
 
     let sumScore = 0;
     reviews.forEach(review => {
@@ -46,9 +43,14 @@ export class ProductDetails extends Component {
               </CardText>
               <CardActions>
                 {
+                  // add to cart button logic
                   productInCart
                     ? <RaisedButton label="Added to Cart" disabled={true} />
                     : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem} />
+                }
+                {
+                  // write review button logic
+                  isLoggedIn && <RaisedButton label="Write Review" secondary={true} onClick={postReview} />
                 }
               </CardActions>
             </Card>
@@ -74,11 +76,13 @@ const mapState = (state, ownProps) => {
   const product = state.products.filter((product) => {
     return product.id === productId
   })[0]
+
   return {
     product,
     reviews: state.reviews,
     users: state.users,
-    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId)
+    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId),
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -96,6 +100,10 @@ const mapDispatch = (dispatch, ownProps) => {
         quantity: 1
       }))
       dispatch(toggleCart()) // Opens the cart to show the item added
+    },
+    postReview: (rating, summary, userId, productId) => {
+      console.log('posted a new review')
+      dispatch(postReview({rating, summary, userId, productId}))
     }
   }
 }
