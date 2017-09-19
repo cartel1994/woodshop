@@ -133,6 +133,6 @@ export default withRouter(connect(mapState, mapDispatch)(Main))
  */
 Main.propTypes = {
   children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
