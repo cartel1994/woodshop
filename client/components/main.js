@@ -17,6 +17,7 @@ import { green100, green500, green700 } from 'material-ui/styles/colors'
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart'
 import Badge from 'material-ui/Badge'
@@ -43,7 +44,11 @@ const muiTheme = getMuiTheme({
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn, showCart, toggleCart, numCartItems } = props
+  const { children, logout, isLoggedIn, showCart, toggleCart, numCartItems } = props
+
+  const style = {
+    margin: 10,
+  }
 
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
@@ -52,12 +57,35 @@ const Main = (props) => {
           title={"Wood Shop"}
           iconElementRight={
             <div>
-              <FlatButton label="Home"
-                containerElement={<Link to="/" />} />
-              <FlatButton label="Sign Up"
-                containerElement={<Link to="/signup" />} />
-              <FlatButton label="Login"
-                containerElement={<Link to="/login" />} />
+              <RaisedButton 
+                label="Home"
+                containerElement={<Link to="/" />} 
+                style={style}
+              />
+              {
+                isLoggedIn
+                  ? (<span>
+                      <RaisedButton 
+                        label="Logout" 
+                        onClick={logout}
+                        style={style}
+                      />
+                    </span>)
+                  : (
+                    <span>
+                      <RaisedButton 
+                        label="Sign Up"
+                        containerElement={<Link to="/signup" />} 
+                        style={style}
+                      /> 
+                      <RaisedButton 
+                        label="Login"
+                        containerElement={<Link to="/login" />} 
+                        style={style}
+                      />
+                    </span>
+                  )
+              }
               { /* Shopping Cart */}
               <Badge badgeContent={numCartItems} secondary={true} badgeStyle={{ top: 14, right: 14, fontSize: 14 }}>
                 <IconButton onClick={toggleCart}>
@@ -87,7 +115,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
+    logout() {
       dispatch(logout())
     },
     toggleCart() {
@@ -105,6 +133,6 @@ export default withRouter(connect(mapState, mapDispatch)(Main))
  */
 Main.propTypes = {
   children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
