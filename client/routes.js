@@ -27,11 +27,11 @@ class Routes extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             {
-              // isLoggedIn &&
-              //   <Switch>
-              //     {/* Routes placed here are only available after logging in */}
-              //     <Route path='/home' component={UserHome} />
-              //   </Switch>
+              isLoggedIn &&
+                <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path='/home' component={UserHome} />
+                </Switch>
             }
             <Route exact path='/' component={ProductList} />
             <Route path='/products/:productId' component={ProductDetails} />
