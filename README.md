@@ -1,6 +1,6 @@
 # Woodshop
 
-This is a beginner project done over 5 days to learn React, Redux, Node, Express, Sequelize, and Passport. Please excuse the general lack of test coverage, and poorly written code.
+This is a beginner project done over 5 days to learn React, Redux, Node, Express, Sequelize, and Passport. Please pardon the general lack of test coverage, and hackish/n00b code.
 
 ## Link to Site
 https://the-woodshop.herokuapp.com/
