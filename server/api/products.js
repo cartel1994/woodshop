@@ -26,7 +26,10 @@ router.delete('/:productId', function (req, res, next) {
 });
 
 router.post('/', (req, res, next) => {
-  Product.create(req.body)
-    .then(product => res.json(product))
-    .catch(next)
+  if (req.user.isAdmin) {
+    Product.create(req.body)
+      .then(product => res.json(product))
+      .catch(next)
+  }
+  res.sendStatus(400)
 })
