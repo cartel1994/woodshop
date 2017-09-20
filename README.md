@@ -21,4 +21,5 @@ https://the-woodshop.herokuapp.com/
 4. Heroku
 
 
-Equally Co-developed by: Daniel Ong, Erik Shuttlesworth, and Joseph Knoebel
+## Equally Co-developed by:
+Daniel Ong, Erik Shuttlesworth, and Joseph Knoebel
