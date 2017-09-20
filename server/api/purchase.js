@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Purchase, Order} = require('../db/models')
+const {Purchase, Order, Product} = require('../db/models')
 const nodemailer = require('nodemailer')
 
 module.exports = router
@@ -13,6 +13,22 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// FOR GETTING PURCHASES
+router.get('/:userId', (req, res, next) => {
+  Purchase.findAll({where: {userId: req.params.userId },
+    include: [{
+      model: Order, include: [{
+        model: Product
+      }]
+    }]
+  })
+  .then(purchases => res.json(purchases))
+  .catch(next)
+})
+
+
+
+// FOR MAKING PURCHASES
 router.post('/', (req, res, next) => {
 
   // kills the cart
