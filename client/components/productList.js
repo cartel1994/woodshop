@@ -6,7 +6,7 @@ import SearchBar from './searchBar'
 import CategoryList from './categoryList'
 import NewProductEntry from './newProductEntry'
 
-export const ProductList = ({categories, products, searchInput, activeCategory}) => {
+export const ProductList = ({categories, products, searchInput, activeCategory, isAdmin}) => {
 
   // filters by search bar input
   const filteredProducts = products.filter(product => {
@@ -40,11 +40,15 @@ export const ProductList = ({categories, products, searchInput, activeCategory})
       <CategoryList />
       <div>
         <br />
-        <NewProductEntry />
         <br />
         <SearchBar />
         <h1>Product List</h1>
         <h3>{categoryName}</h3>
+        {
+          isAdmin && (
+            <NewProductEntry />
+          )
+        }
         <br />
         <div>
           {
@@ -63,7 +67,8 @@ const mapState = (state) => {
     products: state.products,
     searchInput: state.searchInput,
     activeCategory: state.activeCategory,
-    categories: state.categories
+    categories: state.categories,
+    isAdmin: state.user.isAdmin,
   }
 }
 
