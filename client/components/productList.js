@@ -5,7 +5,7 @@ import ProductItem from './productItem'
 import SearchBar from './searchBar'
 import CategoryList from './categoryList'
 
-export const ProductList = ({products, searchInput, activeCategory}) => {
+export const ProductList = ({categories, products, searchInput, activeCategory}) => {
 
   // filters by search bar input
   const filteredProducts = products.filter(product => {
@@ -14,16 +14,25 @@ export const ProductList = ({products, searchInput, activeCategory}) => {
 
   if (filteredProducts.length || searchInput) products = filteredProducts
 
+
   // filters by category
-  if (activeCategory > -1) products = products.filter(product => {
-    let returnValue = false
-    for (let i = 0; i < product.categories.length; i++) {
-      if (product.categories[i].id === activeCategory) {
-        returnValue = true
+  let categoryName = ""
+  if (categories[activeCategory-1] && activeCategory > -1) {
+    // update categoryName
+    categoryName = categories[activeCategory-1].name
+    // filter product list
+    products = products.filter(product => {
+      let returnValue = false
+      for (let i = 0; i < product.categories.length; i++) {
+        if (product.categories[i].id === activeCategory) {
+          returnValue = true
+        }
       }
-    }
-    return returnValue
-  })
+      return returnValue
+    })
+  } else {
+    categoryName = "All"
+  }
 
   return (
     <div style={{display: 'grid', gridTemplateColumns: '15% 84%', gridGap: '.5rem'}}>
@@ -32,6 +41,7 @@ export const ProductList = ({products, searchInput, activeCategory}) => {
         <br />
         <SearchBar />
         <h1>Product List</h1>
+        <h3>{categoryName}</h3>
         <br />
         <div>
           {
@@ -49,7 +59,8 @@ const mapState = (state) => {
   return {
     products: state.products,
     searchInput: state.searchInput,
-    activeCategory: state.activeCategory
+    activeCategory: state.activeCategory,
+    categories: state.categories
   }
 }
 
@@ -57,5 +68,6 @@ export default connect(mapState)(ProductList)
 
 ProductList.propTypes = {
   products: PropTypes.array,
-  searchInput: PropTypes.string
+  searchInput: PropTypes.string,
+  categories: PropTypes.array
 }

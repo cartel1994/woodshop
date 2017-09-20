@@ -26,6 +26,8 @@ export class ProductDetails extends Component {
     })
     const meanScore = Math.round(sumScore / reviews.length * 10) / 10;
 
+    console.log(product)
+
     return (
       <div>
         {
@@ -42,12 +44,11 @@ export class ProductDetails extends Component {
                 <p>{product.details}</p>
               </CardText>
               <CardActions>
-              {
-                // add to cart button logic
-                productInCart
-                  ? <RaisedButton label="Added to Cart" disabled={true} />
-                  : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem} />
-              }
+                {
+                  productInCart
+                    ? <RaisedButton label="Added to Cart" disabled={true} />
+                    : <RaisedButton label="Add to Cart" primary={true} onClick={() => postCartItem(product)} />
+                }
               </CardActions>
             </Card>
           )
@@ -96,9 +97,9 @@ const mapDispatch = (dispatch, ownProps) => {
     fetchUsers: () => {
       dispatch(fetchUsers())
     },
-    postCartItem: () => {
+    postCartItem: (product) => {
       dispatch(postCartItem({
-        ...ownProps.product,
+        ...product,
         quantity: 1
       }))
       dispatch(toggleCart()) // Opens the cart to show the item added
@@ -112,4 +113,5 @@ ProductDetails.propTypes = {
   reviews: PropTypes.array,
   product: PropTypes.object,
   users: PropTypes.array,
+  productInCart: PropTypes.object,
 }

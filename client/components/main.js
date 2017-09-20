@@ -57,30 +57,36 @@ const Main = (props) => {
           title={"Wood Shop"}
           iconElementRight={
             <div>
-              <RaisedButton 
+              <RaisedButton
                 label="Home"
-                containerElement={<Link to="/" />} 
+                containerElement={<Link to="/" />}
                 style={style}
               />
               {
                 isLoggedIn
-                  ? (<span>
-                      <RaisedButton 
-                        label="Logout" 
+                  ? (
+                    <span>
+                      <RaisedButton
+                        label="User"
+                        containerElement={<Link to="/user" />}
+                        style={style}
+                      />
+                      <RaisedButton
+                        label="Logout"
                         onClick={logout}
                         style={style}
                       />
                     </span>)
                   : (
                     <span>
-                      <RaisedButton 
+                      <RaisedButton
                         label="Sign Up"
-                        containerElement={<Link to="/signup" />} 
+                        containerElement={<Link to="/signup" />}
                         style={style}
-                      /> 
-                      <RaisedButton 
+                      />
+                      <RaisedButton
                         label="Login"
-                        containerElement={<Link to="/login" />} 
+                        containerElement={<Link to="/login" />}
                         style={style}
                       />
                     </span>
@@ -107,6 +113,7 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
+    isAdmin: !!state.user.isAdmin,
     isLoggedIn: !!state.user.id,
     showCart: state.toggleCart,
     numCartItems: state.cart.length

@@ -13,3 +13,16 @@ router.get('/:id', (req, res, next) => {
     .then(product => res.json(product))
     .catch(next)
 })
+
+
+
+router.delete('/:productId', function (req, res, next) {
+  const id = req.params.productId;
+  //backend condtional for admin
+  if (req.user.isAdmin) {
+    return Product.destroy({ where: { id } })
+      .then(() => res.status(204).end())
+      .catch(next);
+  }
+  res.sendStatus(400)
+});

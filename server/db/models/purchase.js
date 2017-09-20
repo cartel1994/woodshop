@@ -20,16 +20,11 @@ const Purchase = db.define('purchase', {
   }
 }, {
   getterMethods: {
-    totalPrice: function () {
-
-      return this.getOrders()
-        .then(orders => {
-          const sum = orders.reduce((acc, curr) => {
-            return acc + curr.totalCost // an Order instance method
-          }, 0)
-          return sum / 100
-        })
-    }
+    // totalPrice: function () {
+    //   return this.getOrders().reduce((acc, curr) => {
+    //         return acc + curr.totalCost // an Order instance method
+    //       }, 0) / 100
+    // }
   }
 })
 
