@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import ProductItem from './productItem'
 import SearchBar from './searchBar'
 import CategoryList from './categoryList'
+import NewProductEntry from './newProductEntry'
 
 export const ProductList = ({categories, products, searchInput, activeCategory}) => {
 
@@ -38,6 +39,8 @@ export const ProductList = ({categories, products, searchInput, activeCategory})
     <div style={{display: 'grid', gridTemplateColumns: '15% 84%', gridGap: '.5rem'}}>
       <CategoryList />
       <div>
+        <br />
+        <NewProductEntry />
         <br />
         <SearchBar />
         <h1>Product List</h1>

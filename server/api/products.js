@@ -14,8 +14,6 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-
 router.delete('/:productId', function (req, res, next) {
   const id = req.params.productId;
   //backend condtional for admin
@@ -26,3 +24,9 @@ router.delete('/:productId', function (req, res, next) {
   }
   res.sendStatus(400)
 });
+
+router.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(product => res.json(product))
+    .catch(next)
+})
