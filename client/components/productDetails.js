@@ -5,9 +5,9 @@ import ProductItem from './productItem'
 import { Card, CardMedia, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import ReviewItem from './reviewItem'
+import NewReviewEntry from './newReviewEntry'
 
 import { fetchReviews, fetchUsers, postCartItem, toggleCart } from '../store'
-
 
 export class ProductDetails extends Component {
 
@@ -18,10 +18,7 @@ export class ProductDetails extends Component {
   }
 
   render() {
-    // const product = this.props.product
-    // const reviews = this.props.reviews
-    // const users = this.props.users
-    const { product, reviews, users, postCartItem, productInCart } = this.props
+    const { product, reviews, users, postCartItem, productInCart, isLoggedIn, postReview, userId } = this.props
 
     let sumScore = 0;
     reviews.forEach(review => {
@@ -56,6 +53,11 @@ export class ProductDetails extends Component {
             </Card>
           )
         }
+        <br />
+        {
+          // write review button logic
+          isLoggedIn && product && <NewReviewEntry userId={userId} productId={product.id} />
+        }
         {
           reviews && (
             <div>
@@ -76,11 +78,14 @@ const mapState = (state, ownProps) => {
   const product = state.products.filter((product) => {
     return product.id === productId
   })[0]
+
   return {
     product,
     reviews: state.reviews,
     users: state.users,
-    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId)
+    productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId),
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 
@@ -98,7 +103,7 @@ const mapDispatch = (dispatch, ownProps) => {
         quantity: 1
       }))
       dispatch(toggleCart()) // Opens the cart to show the item added
-    }
+    },
   }
 }
 
