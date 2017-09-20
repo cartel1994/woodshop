@@ -3,6 +3,7 @@ import axios from 'axios'
 // ACTION TYPES
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const GET_PRODUCT = 'GET_PRODUCT'
 
 // INITIAL STATE
 const defaultProducts = []
@@ -10,6 +11,7 @@ const defaultProducts = []
 // ACTION CREATORS
 const getProducts = products => ({type: GET_PRODUCTS, products})
 const removeProduct = id => ({ type: REMOVE_PRODUCT, id })
+const getProduct = product => ({type: GET_PRODUCT, product})
 
 // THUNK CREATORS
 export const fetchProducts = () =>
@@ -25,6 +27,13 @@ export const destroyProduct = id => dispatch => {
     .catch(err => console.error(err))
 }
 
+export const postProduct = (productData) =>
+  dispatch =>
+    axios.post('/api/products', productData)
+      .then(res => res.data)
+      .then(product => dispatch(getProduct(product)))
+      .catch(err => console.error(err))
+
 // REDUCER
 export default function (state = defaultProducts, action) {
   switch (action.type) {
@@ -34,6 +43,9 @@ export default function (state = defaultProducts, action) {
 
     case REMOVE_PRODUCT:
       return state.filter(product => product.id !== action.id)
+
+    case GET_PRODUCT:
+      return [...state, action.product]
 
     default:
       return state
