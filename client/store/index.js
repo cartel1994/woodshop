@@ -11,6 +11,7 @@ import activeCategory from './activeCategory'
 import cart from './cart'
 import toggleCart from './toggleCart'
 import categories from './categories'
+import purchases from './purchases'
 
 const reducer = combineReducers({
   user,
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   users,
   cart,
   activeCategory,
-  categories
+  categories,
+  purchases,
 })
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -31,6 +33,7 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './user'
 export * from './products'
+export * from './purchases'
 export * from './searchInput'
 export * from './activeCategory'
 export * from './cart'
