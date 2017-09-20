@@ -12,9 +12,9 @@ export class NewProductEntry extends Component {
     this.state = {
       name: '',
       details: '',
-      stock: undefined,
-      price: undefined,
-      photoUrl: ''
+      stock: 100,
+      price: 10,
+      photoUrl: 'http://dummyimage.com/1024x768.jpg/ff4444/ffffff'
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -43,11 +43,11 @@ export class NewProductEntry extends Component {
     return (
       <Card>
         <CardTitle title="Add a Product" />
-        <TextField hintText="Name" name='name' style={style} value={this.state.name} onChange={this.handleChange} />
-        <TextField hintText="Details" name='details' style={style} value={this.state.details} onChange={this.handleChange} />
-        <TextField hintText="Stock" name='stock' style={style} value={this.state.stock} onChange={this.handleChange} />
-        <TextField hintText="Price" name='price' style={style} value={this.state.price} onChange={this.handleChange} />
-        <TextField defaultValue="http://dummyimage.com/1024x768.jpg/ff4444/ffffff" name='photoUrl' style={style} value={this.state.photoUrl} onChange={this.handleChange} />
+        <TextField hintText="Name" floatingLabelText="Name" floatingLabelFixed={true} name='name' style={style} value={this.state.name} onChange={this.handleChange} />
+        <TextField hintText="Details" floatingLabelText="Details" floatingLabelFixed={true} name='details' style={style} value={this.state.details} onChange={this.handleChange} />
+        <TextField hintText="Stock" floatingLabelText="Stock" floatingLabelFixed={true} name='stock' style={style} value={this.state.stock} onChange={this.handleChange} />
+        <TextField hintText="Price" floatingLabelText="Price" floatingLabelFixed={true} name='price' style={style} value={this.state.price} onChange={this.handleChange} />
+        <TextField name='photoUrl' floatingLabelText="URL to Photo" floatingLabelFixed={true} style={style} value={this.state.photoUrl} onChange={this.handleChange} />
         <br/>
         <RaisedButton label="Submit" style={style} secondary={true} onClick={() => postProduct(this.state)} />
       </Card>
