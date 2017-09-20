@@ -18,7 +18,7 @@ export class ProductDetails extends Component {
   }
 
   render() {
-    const { product, reviews, users, postCartItem, productInCart, isLoggedIn, postReview } = this.props
+    const { product, reviews, users, postCartItem, productInCart, isLoggedIn, postReview, userId } = this.props
 
     let sumScore = 0;
     reviews.forEach(review => {
@@ -50,7 +50,7 @@ export class ProductDetails extends Component {
                 }
                 {
                   // write review button logic
-                  isLoggedIn && <RaisedButton label="Write Review" secondary={true} onClick={postReview} />
+                  isLoggedIn && <RaisedButton label="Write Review" secondary={true} onClick={() => postReview(rating, summary, userId, product.id)} />
                 }
               </CardActions>
             </Card>
@@ -82,7 +82,8 @@ const mapState = (state, ownProps) => {
     reviews: state.reviews,
     users: state.users,
     productInCart: state.cart && state.cart.find((cartItem) => cartItem.id == productId),
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 
