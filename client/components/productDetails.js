@@ -5,9 +5,9 @@ import ProductItem from './productItem'
 import { Card, CardMedia, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import ReviewItem from './reviewItem'
+import NewReviewEntry from './newReviewEntry'
 
-import { fetchReviews, fetchUsers, postCartItem, toggleCart, postReview } from '../store'
-
+import { fetchReviews, fetchUsers, postCartItem, toggleCart } from '../store'
 
 export class ProductDetails extends Component {
 
@@ -42,19 +42,20 @@ export class ProductDetails extends Component {
                 <p>{product.details}</p>
               </CardText>
               <CardActions>
-                {
-                  // add to cart button logic
-                  productInCart
-                    ? <RaisedButton label="Added to Cart" disabled={true} />
-                    : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem} />
-                }
-                {
-                  // write review button logic
-                  isLoggedIn && <RaisedButton label="Write Review" secondary={true} onClick={() => postReview(rating, summary, userId, product.id)} />
-                }
+              {
+                // add to cart button logic
+                productInCart
+                  ? <RaisedButton label="Added to Cart" disabled={true} />
+                  : <RaisedButton label="Add to Cart" primary={true} onClick={postCartItem} />
+              }
               </CardActions>
             </Card>
           )
+        }
+        <br />
+        {
+          // write review button logic
+          isLoggedIn && product && <NewReviewEntry userId={userId} productId={product.id} />
         }
         {
           reviews && (
@@ -102,10 +103,6 @@ const mapDispatch = (dispatch, ownProps) => {
       }))
       dispatch(toggleCart()) // Opens the cart to show the item added
     },
-    postReview: (rating, summary, userId, productId) => {
-      console.log('posted a new review')
-      dispatch(postReview({rating, summary, userId, productId}))
-    }
   }
 }
 
