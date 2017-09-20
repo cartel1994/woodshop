@@ -113,6 +113,7 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
+    isAdmin: !!state.user.isAdmin,
     isLoggedIn: !!state.user.id,
     showCart: state.toggleCart,
     numCartItems: state.cart.length

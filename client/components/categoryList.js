@@ -11,6 +11,7 @@ const CategoryList = ({categories, filterByCategory}) => {
   return (
   <Card>
     <List>
+      <ListItem primaryText="All Categories" onClick={() => filterByCategory(-1)} />
     {
       categories.map(category =>
         <div key={category.id}>
